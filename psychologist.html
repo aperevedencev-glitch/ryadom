@@ -5,34 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Анкета психолога — Рядом</title>
 <meta name="theme-color" content="#F3F4F0">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="psychologists">
 <div id="site-header"></div>
 <main class="wrap" style="padding-top:40px;padding-bottom:40px" id="root"></main>
 <div id="site-footer"></div>
-<script src="/psychologists-data.js"></script>
-<script src="/common.js"></script>
+<script src="psychologists-data.js"></script>
+<script src="common.js"></script>
 <script>
 const id = new URLSearchParams(location.search).get("id");
 const p = PSY.find(x=>x.id===id);
 const root = $("#root");
 if(!p){
-  root.innerHTML = `<div class="empty"><h2>Анкета не найдена</h2><p class="muted" style="margin:12px 0 20px">Возможно, ссылка устарела.</p><a class="btn" href="/psychologists">Все психологи</a></div>`;
+  root.innerHTML = `<div class="empty"><h2>Анкета не найдена</h2><p class="muted" style="margin:12px 0 20px">Возможно, ссылка устарела.</p><a class="btn" href="psychologists.html">Все психологи</a></div>`;
 } else {
   document.title = `${p.name} — ${p.role} — Рядом`;
   const others = PSY.filter(x=>x.id!==p.id && x.topics.some(t=>p.topics.includes(t))).slice(0,3);
   root.innerHTML = `
-  <p class="crumbs"><a href="/psychologists">Психологи</a> / ${p.name}</p>
+  <p class="crumbs"><a href="psychologists.html">Психологи</a> / ${p.name}</p>
   <div class="profile">
     <div class="main">
       <div class="who" style="gap:24px;align-items:center;flex-wrap:wrap">${avatar(p,"lg")}
         <div><h1 class="page" style="font-size:clamp(32px,4vw,48px)">${p.name}</h1><p class="muted" style="margin-top:6px">${p.role}</p></div></div>
       <p style="font-family:var(--serif);font-size:22px;margin-top:28px">${p.headline}</p>
-      <div class="tags" style="margin-top:16px">${p.topics.map(t=>`<a class="chip sm" href="/psychologists?topic=${encodeURIComponent(t)}">${t}</a>`).join("")}</div>
+      <div class="tags" style="margin-top:16px">${p.topics.map(t=>`<a class="chip sm" href="psychologists.html?topic=${encodeURIComponent(t)}">${t}</a>`).join("")}</div>
       <h2>О себе</h2>
       <div class="prose">${p.about.map(t=>`<p>${t}</p>`).join("")}</div>
       <blockquote class="q">${p.quote}</blockquote>
@@ -65,10 +65,10 @@ if(!p){
     </aside>
   </div>
   ${others.length?`<section style="padding-bottom:0"><h2 style="margin-bottom:24px">Работают с похожими темами</h2><div class="grid">${others.map(o=>`
-    <article class="card"><div class="who">${avatar(o)}<div><h3><a href="/psychologist?id=${o.id}">${o.name}</a></h3><small>${o.role}</small></div></div>
+    <article class="card"><div class="who">${avatar(o)}<div><h3><a href="psychologist.html?id=${o.id}">${o.name}</a></h3><small>${o.role}</small></div></div>
     <div class="tags">${o.topics.slice(0,3).map(t=>`<span>${t}</span>`).join("")}</div>
     <div class="meta"><span>Ближайшее: <b>${firstSlot(o)}</b></span><span><b>${rub(o.price)}</b></span></div>
-    <a class="btn ghost" href="/psychologist?id=${o.id}">Анкета</a></article>`).join("")}</div></section>`:""}`;
+    <a class="btn ghost" href="psychologist.html?id=${o.id}">Анкета</a></article>`).join("")}</div></section>`:""}`;
 }
 </script>
 </body>

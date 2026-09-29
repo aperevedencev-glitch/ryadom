@@ -61,7 +61,7 @@ const ARTICLES = [
 <h2>Учтите неоплачиваемое время</h2><p>Подготовка, переписка с клиентами, записи после встреч, поиск клиентов. Реально оплачиваемых часов в неделе почти всегда меньше, чем кажется.</p>
 <h2>Заложите отмены и отпуск</h2><p>Клиенты болеют и уезжают, вы тоже. Считайте доход не на 52 недели в году, а на реальные 44–46.</p>
 <h2>Вычтите налоги и комиссии</h2><p>Налог на профессиональный доход, взносы ИП, комиссии платформ и платёжных сервисов заметно уменьшают сумму на руки.</p>
-<div class="callout">Всё это можно посчитать в нашем калькуляторе на странице <a href="/analytics">«Аналитика»</a>.</div>`},
+<div class="callout">Всё это можно посчитать в нашем калькуляторе на странице <a href="analytics.html">«Аналитика»</a>.</div>`},
 {slug:"anketa-psihologa", kind:"Психологам", pic:"card", title:"Как написать анкету, которую дочитают",
  lead:"Клиент выбирает за минуту. Что писать в первых строках, как говорить о подходе без терминов и зачем нужна фотография.",
  body:`<p>Человек, который ищет психолога, обычно устал и встревожен. Он не будет вчитываться в длинный список сертификатов. Анкета должна быстро ответить на вопрос: «Это про меня?»</p>
@@ -86,6 +86,6 @@ const ARTICLES = [
 ];
 ARTICLES.forEach((a,i)=>{ a.minutes = Math.max(3, Math.round(a.body.replace(/<[^>]+>/g," ").split(/\s+/).length/170)); a.bg = ART_BG[i%3]; });
 function articleCard(a){
-  return `<a class="art" href="/article?slug=${a.slug}"><div class="pic" style="background:${a.bg}">${ART_PICS[a.pic]}</div>
+  return `<a class="art" href="article.html?slug=${a.slug}"><div class="pic" style="background:${a.bg}">${ART_PICS[a.pic]}</div>
   <div class="txt"><span class="kind">${a.kind} · ${a.minutes} мин чтения</span><h3>${a.title}</h3><p class="muted" style="font-size:15px">${a.lead}</p></div></a>`;
 }

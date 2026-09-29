@@ -6,10 +6,10 @@
 <title>Психологи — Рядом</title>
 <meta name="description" content="Каталог психологов «Рядом»: фильтры по запросу, подходу, цене и свободному времени. Запись на видеовстречу в пару кликов.">
 <meta name="theme-color" content="#F3F4F0">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="psychologists">
 <div id="site-header"></div>
@@ -43,8 +43,8 @@
   </div>
 </main>
 <div id="site-footer"></div>
-<script src="/psychologists-data.js"></script>
-<script src="/common.js"></script>
+<script src="psychologists-data.js"></script>
+<script src="common.js"></script>
 <script>
 const GROUPS = [
   {key:"topic", title:"С чем нужна помощь", multi:true, opts:TOPICS.map(t=>[t,t])},
@@ -100,7 +100,7 @@ function pcard(p){
   const topic = [...state.topic].find(t=>p.topics.includes(t)) || "";
   return `<article class="pcard">
     <div>
-      <div class="who">${avatar(p)}<div><h3><a href="/psychologist?id=${p.id}">${p.name}</a></h3><small>${p.role}</small></div></div>
+      <div class="who">${avatar(p)}<div><h3><a href="psychologist.html?id=${p.id}">${p.name}</a></h3><small>${p.role}</small></div></div>
       <div class="facts"><span>Опыт ${p.exp} ${yearsWord(p.exp)}</span><span>${p.audText}</span><span>${formatText(p)}</span></div>
       <p class="quote">${p.headline}</p>
       <div class="tags">${p.topics.map(t=>`<span${state.topic.has(t)?' style="background:var(--mint)"':""}>${t}</span>`).join("")}</div>
@@ -108,11 +108,11 @@ function pcard(p){
     <div class="slots" style="display:flex;flex-direction:column;gap:14px">
       <div class="price"><b>${rub(p.price)}</b> <span class="muted">за 50 минут</span></div>
       ${p.slots.map(([d,times])=>`<div><div class="day">${dayLabel(d)}</div><div class="times">${times.map(t=>`<button class="slot" type="button" data-open-booking data-psy="${p.name}" data-topic="${esc(topic)}" data-slot="${dayLabel(d)}, ${t}">${t}</button>`).join("")}</div></div>`).join("")}
-      <div class="actions"><button class="btn sm" type="button" data-open-booking data-psy="${p.name}" data-topic="${esc(topic)}">Записаться</button><a class="btn ghost sm" href="/psychologist?id=${p.id}">Анкета</a></div>
+      <div class="actions"><button class="btn sm" type="button" data-open-booking data-psy="${p.name}" data-topic="${esc(topic)}">Записаться</button><a class="btn ghost sm" href="psychologist.html?id=${p.id}">Анкета</a></div>
     </div>
   </article>`;
 }
-const AI_CARD = `<article class="ai-card"><span class="status" style="align-self:flex-start">Демо-режим · живой разговор скоро</span><h3>ИИ-собеседник</h3><p class="muted">Можно выговориться, успокоиться и понять, с чего начать. Если нужно — подскажет подходящего психолога.</p><div><a class="btn ghost sm" href="/ai">Об ИИ-собеседнике</a></div></article>`;
+const AI_CARD = `<article class="ai-card"><span class="status" style="align-self:flex-start">Демо-режим · живой разговор скоро</span><h3>ИИ-собеседник</h3><p class="muted">Можно выговориться, успокоиться и понять, с чего начать. Если нужно — подскажет подходящего психолога.</p><div><a class="btn ghost sm" href="ai.html">Об ИИ-собеседнике</a></div></article>`;
 function render(){
   const list = PSY.filter(matches).sort(SORTS[$("#sort").value]);
   const n=list.length, a=n%10, b=n%100, w = (a>=1&&a<=4&&(b<11||b>14)) ? "психолога" : "психологов";

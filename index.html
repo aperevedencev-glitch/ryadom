@@ -6,10 +6,10 @@
 <title>Рядом — психологи онлайн</title>
 <meta name="description" content="Психологи онлайн: выберите специалиста по запросу, опыту и подходу и запишитесь на видеовстречу. ИИ-собеседник и письма поддержки.">
 <meta name="theme-color" content="#F3F4F0">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="home">
 <div id="site-header"></div>
@@ -29,7 +29,7 @@
           <div class="faces" id="faces"></div>
           <div class="spacer"></div>
           <div class="note" id="nearest"></div>
-          <div><a class="btn" href="/psychologists">Выбрать психолога</a></div>
+          <div><a class="btn" href="psychologists.html">Выбрать психолога</a></div>
         </article>
         <article class="tile mint">
           <span class="eyebrow">ИИ-собеседник</span>
@@ -37,7 +37,7 @@
           <p>Голосовой собеседник для поддержки между встречами. Сейчас работает демо-версия: живой разговор пока отключён.</p>
           <div class="spacer"></div>
           <span class="status" style="align-self:flex-start">Демо-режим · живой разговор скоро</span>
-          <div><a class="btn ghost" href="/ai">Об ИИ-собеседнике</a></div>
+          <div><a class="btn ghost" href="ai.html">Об ИИ-собеседнике</a></div>
         </article>
       </div>
     </div>
@@ -50,7 +50,7 @@
           <h2>С кем можно поговорить</h2>
           <p class="muted">У каждого специалиста — профильное образование, личная терапия и регулярная супервизия. Выбирайте по теме, подходу и удобному времени.</p>
         </div>
-        <a class="btn ghost" href="/psychologists" id="allLink">Все психологи</a>
+        <a class="btn ghost" href="psychologists.html" id="allLink">Все психологи</a>
       </div>
       <div class="grid" id="grid"></div>
     </div>
@@ -60,7 +60,7 @@
     <div class="wrap">
       <div class="head">
         <div><h2>Журнал</h2><p class="muted">Спокойные тексты о том, как устроена психотерапия, и заметки для специалистов о профессии.</p></div>
-        <a class="btn ghost" href="/blog">Все статьи</a>
+        <a class="btn ghost" href="blog.html">Все статьи</a>
       </div>
       <div class="arts" id="arts"></div>
     </div>
@@ -74,7 +74,7 @@
           <h2 style="margin-top:10px">Психология в цифрах</h2>
           <p style="margin-top:14px">Рынок, платформы, цены сессий, спрос и вакансии — с первоисточниками. Плюс калькулятор дохода психолога.</p>
         </div>
-        <div><a class="btn light" href="/analytics">Открыть аналитику</a></div>
+        <div><a class="btn light" href="analytics.html">Открыть аналитику</a></div>
       </div>
     </div>
   </section>
@@ -162,9 +162,9 @@
   </section>
 </main>
 <div id="site-footer"></div>
-<script src="/psychologists-data.js"></script>
-<script src="/common.js"></script>
-<script src="/articles.js"></script>
+<script src="psychologists-data.js"></script>
+<script src="common.js"></script>
+<script src="articles.js"></script>
 <script>
 const HOME_TOPICS = TOPICS.slice(0,11);
 const minExp = Math.min(...PSY.map(p=>p.exp)), maxExp = Math.max(...PSY.map(p=>p.exp)), minPrice = Math.min(...PSY.map(p=>p.price));
@@ -175,11 +175,11 @@ const soonest = PSY.filter(p=>p.slots[0][0]===0).map(p=>p.slots[0][1][0]).sort()
 $("#nearest").textContent = soonest ? `Ближайшее свободное время — сегодня в ${soonest}` : "Ближайшее свободное время — завтра";
 
 const chips = $("#chips");
-chips.innerHTML = HOME_TOPICS.map(t=>`<button class="chip" type="button" aria-pressed="false">${t}</button>`).join("") + `<a class="chip" href="/psychologists">Все темы →</a>`;
+chips.innerHTML = HOME_TOPICS.map(t=>`<button class="chip" type="button" aria-pressed="false">${t}</button>`).join("") + `<a class="chip" href="psychologists.html">Все темы →</a>`;
 
 function card(p){
   return `<article class="card">
-    <div class="who">${avatar(p)}<div><h3><a href="/psychologist?id=${p.id}">${p.name}</a></h3><small>${p.role}</small></div></div>
+    <div class="who">${avatar(p)}<div><h3><a href="psychologist.html?id=${p.id}">${p.name}</a></h3><small>${p.role}</small></div></div>
     <div class="muted" style="font-size:14px">Опыт ${p.exp} ${yearsWord(p.exp)}</div>
     <div class="tags">${p.topics.slice(0,3).map(t=>`<span>${t}</span>`).join("")}</div>
     <div class="meta"><span>Ближайшее: <b>${firstSlot(p)}</b></span><span><b>${rub(p.price)}</b> / 50 мин</span></div>
@@ -190,7 +190,7 @@ function renderGrid(){
   const on = $$('[aria-pressed="true"]',chips).map(b=>b.textContent);
   const list = PSY.filter(p=>!on.length || on.some(t=>p.topics.includes(t)));
   $("#grid").innerHTML = list.slice(0,6).map(card).join("") || `<div class="empty">По этой теме пока никого нет — оставьте заявку, и мы подберём специалиста.</div>`;
-  $("#allLink").href = "/psychologists" + (on.length ? "?topic="+encodeURIComponent(on.join(",")) : "");
+  $("#allLink").href = "psychologists.html" + (on.length ? "?topic="+encodeURIComponent(on.join(",")) : "");
   $("#allLink").textContent = on.length ? `Все по теме (${list.length})` : `Все ${PSY.length} психологов`;
 }
 chips.addEventListener("click",e=>{

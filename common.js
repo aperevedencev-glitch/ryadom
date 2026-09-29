@@ -68,12 +68,12 @@ const LOGO = `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16
 /* ---- layout ---- */
 function renderLayout(){
   const page = document.body.dataset.page || "";
-  const nav = [["psychologists","/psychologists","Психологи"],["ai","/ai","ИИ-собеседник"],["blog","/blog","Журнал"],["analytics","/analytics","Аналитика"],["join","/join","Психологам"]];
+  const nav = [["psychologists","psychologists.html","Психологи"],["ai","ai.html","ИИ-собеседник"],["blog","blog.html","Журнал"],["analytics","analytics.html","Аналитика"],["join","join.html","Психологам"]];
   const h = $("#site-header");
   if(h) h.outerHTML = `
   <div class="demo">Демо-проект: психологи, анкеты и отзывы вымышлены, фотографии созданы нейросетью. Заявки сохраняются, но никто не перезвонит.</div>
   <header class="site"><div class="wrap nav">
-    <a class="logo" href="/" aria-label="Рядом — на главную">${LOGO}Рядом</a>
+    <a class="logo" href="index.html" aria-label="Рядом — на главную">${LOGO}Рядом</a>
     <ul id="menu">${nav.map(([k,href,t])=>`<li><a href="${href}"${k===page?' aria-current="page"':""}>${t}</a></li>`).join("")}</ul>
     <div class="cta"><button class="burger" type="button" aria-expanded="false" aria-controls="menu">Меню</button><button class="btn" type="button" data-open-booking>Записаться</button></div>
   </div></header>`;
@@ -88,9 +88,9 @@ function renderLayout(){
     </div></div></div></section>
   <footer class="site"><div class="wrap">
     <div class="foot">
-      <div><a class="logo" href="/">${LOGO}Рядом</a><p class="muted" style="margin-top:10px;max-width:320px">Психологи онлайн, ИИ-собеседник и письма поддержки. Выберите, с чего начать.</p></div>
-      <div><h4>Клиентам</h4><ul><li><a href="/psychologists">Все психологи</a></li><li><a href="#" data-open-booking>Записаться</a></li><li><a href="/ai">ИИ-собеседник</a></li><li><a href="/#faq">Вопросы и ответы</a></li></ul></div>
-      <div><h4>Специалистам</h4><ul><li><a href="/join">Как попасть в команду</a></li><li><a href="/blog">Журнал</a></li><li><a href="/analytics">Аналитика и калькулятор</a></li></ul></div>
+      <div><a class="logo" href="index.html">${LOGO}Рядом</a><p class="muted" style="margin-top:10px;max-width:320px">Психологи онлайн, ИИ-собеседник и письма поддержки. Выберите, с чего начать.</p></div>
+      <div><h4>Клиентам</h4><ul><li><a href="psychologists.html">Все психологи</a></li><li><a href="#" data-open-booking>Записаться</a></li><li><a href="ai.html">ИИ-собеседник</a></li><li><a href="index.html#faq">Вопросы и ответы</a></li></ul></div>
+      <div><h4>Специалистам</h4><ul><li><a href="join.html">Как попасть в команду</a></li><li><a href="blog.html">Журнал</a></li><li><a href="analytics.html">Аналитика и калькулятор</a></li></ul></div>
     </div>
     <p class="copy">© 2026 «Рядом». Демо-проект. Не является медицинской услугой.</p>
   </div></footer>`;

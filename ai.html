@@ -6,10 +6,10 @@
 <title>ИИ-собеседник: демо-режим — Рядом</title>
 <meta name="description" content="Голосовой ИИ-собеседник «Рядом» для поддержки между встречами с психологом. Сейчас работает в демо-режиме.">
 <meta name="theme-color" content="#F3F4F0">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="ai">
 <div id="site-header"></div>
@@ -74,14 +74,14 @@
         <h2 style="font-size:30px">Когда лучше к психологу</h2>
         <p>Если трудности тянутся месяцами, мешают работать и общаться или связаны с травмой — лучше работать с живым специалистом. ИИ поможет продержаться до первой встречи.</p>
         <div class="faces" id="faces"></div>
-        <div><a class="btn" href="/psychologists">Подобрать психолога</a></div>
+        <div><a class="btn" href="psychologists.html">Подобрать психолога</a></div>
       </div>
     </div>
   </section>
 </main>
 <div id="site-footer"></div>
-<script src="/psychologists-data.js"></script>
-<script src="/common.js"></script>
+<script src="psychologists-data.js"></script>
+<script src="common.js"></script>
 <script>$("#faces").innerHTML = PSY.slice(4,8).map(p=>avatar(p)).join("") + `<span class="more">+${PSY.length-4}</span>`;</script>
 </body>
 </html>

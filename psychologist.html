@@ -14,6 +14,7 @@
 <div id="site-header"></div>
 <main class="wrap" style="padding-top:40px;padding-bottom:40px" id="root"></main>
 <div id="site-footer"></div>
+<script src="/psychologists-data.js"></script>
 <script src="/common.js"></script>
 <script>
 const id = new URLSearchParams(location.search).get("id");
@@ -30,23 +31,31 @@ if(!p){
     <div class="main">
       <div class="who" style="gap:24px;align-items:center;flex-wrap:wrap">${avatar(p,"lg")}
         <div><h1 class="page" style="font-size:clamp(32px,4vw,48px)">${p.name}</h1><p class="muted" style="margin-top:6px">${p.role}</p></div></div>
-      <p class="quote" style="font-family:var(--serif);font-size:22px;margin-top:28px">${p.quote}</p>
+      <p style="font-family:var(--serif);font-size:22px;margin-top:28px">${p.headline}</p>
       <div class="tags" style="margin-top:16px">${p.topics.map(t=>`<a class="chip sm" href="/psychologists?topic=${encodeURIComponent(t)}">${t}</a>`).join("")}</div>
       <h2>О себе</h2>
-      <div class="prose"><p>${p.about}</p></div>
+      <div class="prose">${p.about.map(t=>`<p>${t}</p>`).join("")}</div>
+      <blockquote class="q">${p.quote}</blockquote>
+      <h2>Как пройдёт первая встреча</h2>
+      <div class="prose"><p>${p.firstSession}</p></div>
       <h2>Как проходит работа</h2>
       <div class="prose"><ul>
         <li>Подход: ${p.approaches.join(", ")}</li>
         <li>С кем работает: ${p.audText.toLowerCase()}</li>
         <li>Формат: ${formatText(p).toLowerCase()}</li>
-        <li>Длительность встречи — 50 минут</li>
+        <li>Языки: ${p.languages.join(", ")}</li>
+        <li>Встреча — 50 минут${p.coupleSessionMinutes?`, для пары — ${p.coupleSessionMinutes} минут`:""}</li>
       </ul></div>
       <h2>Образование</h2>
-      <div class="prose"><ul>${p.edu.map(e=>`<li>${e}</li>`).join("")}</ul>
+      <div class="prose"><ul>${p.education.map(e=>`<li><b>${e.year}</b> · ${e.place} — ${e.program}</li>`).join("")}</ul>
+      <p>${p.practice}</p>
       <p class="muted" style="font-size:15px">Дипломы и сертификаты проверены командой «Рядом».</p></div>
+      <h2>Отзывы</h2>
+      <div style="display:flex;flex-direction:column;gap:12px">${p.reviews.map(r=>`<div class="review"><p>${r.text}</p><small>${r.author} · ${r.date}</small></div>`).join("")}</div>
     </div>
     <aside class="side">
       <div class="price" style="font-size:18px"><b>${rub(p.price)}</b> <span class="muted">за 50 минут</span></div>
+      ${p.couplePrice?`<div class="price" style="font-size:15px;margin-top:4px"><b>${rub(p.couplePrice)}</b> <span class="muted">сессия для пары</span></div>`:""}
       <p class="muted" style="font-size:14px;margin:6px 0 18px">Опыт ${p.exp} ${yearsWord(p.exp)} · ${p.audText}</p>
       <div class="slots">
         ${p.slots.map(([d,times])=>`<div><div class="day">${dayLabel(d)}</div><div class="times">${times.map(t=>`<button class="slot" type="button" data-open-booking data-psy="${p.name}" data-slot="${dayLabel(d)}, ${t}">${t}</button>`).join("")}</div></div>`).join("")}

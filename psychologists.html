@@ -43,13 +43,14 @@
   </div>
 </main>
 <div id="site-footer"></div>
+<script src="/psychologists-data.js"></script>
 <script src="/common.js"></script>
 <script>
 const GROUPS = [
   {key:"topic", title:"С чем нужна помощь", multi:true, opts:TOPICS.map(t=>[t,t])},
   {key:"aud", title:"Кому нужна консультация", multi:true, opts:Object.entries(AUDIENCE)},
   {key:"when", title:"Когда", multi:false, opts:[["0","Есть время сегодня"],["2","В ближайшие 3 дня"]]},
-  {key:"price", title:"Стоимость встречи", multi:false, opts:[["3000","до 3 000 ₽"],["4500","до 4 500 ₽"]]},
+  {key:"price", title:"Стоимость встречи", multi:false, opts:[["2500","до 2 500 ₽"],["4250","до 4 250 ₽"]]},
   {key:"g", title:"Пол психолога", multi:false, opts:[["f","Женщина"],["m","Мужчина"]]},
   {key:"exp", title:"Опыт", multi:false, opts:[["5","От 5 лет"],["10","От 10 лет"]]},
   {key:"format", title:"Формат", multi:true, opts:Object.entries(FORMATS)},
@@ -101,7 +102,7 @@ function pcard(p){
     <div>
       <div class="who">${avatar(p)}<div><h3><a href="/psychologist?id=${p.id}">${p.name}</a></h3><small>${p.role}</small></div></div>
       <div class="facts"><span>Опыт ${p.exp} ${yearsWord(p.exp)}</span><span>${p.audText}</span><span>${formatText(p)}</span></div>
-      <p class="quote">${p.quote}</p>
+      <p class="quote">${p.headline}</p>
       <div class="tags">${p.topics.map(t=>`<span${state.topic.has(t)?' style="background:var(--mint)"':""}>${t}</span>`).join("")}</div>
     </div>
     <div class="slots" style="display:flex;flex-direction:column;gap:14px">

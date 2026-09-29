@@ -2,52 +2,48 @@
 const SUPABASE_URL = "https://wuvadreohiphwevprwmk.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QnCBQILrqr6PhrAE8521NA_edLJSMA-";
 
-const TOPICS = ["Тревога и паника","Нет сил","Выгорание","Отношения","Кризис в паре","Самооценка","Травма","Утрата и горе","Подростки","Дети и родители","Беременность и материнство","Работа и прокрастинация","Злость и раздражение","Зависимости","Отношения с едой","Перемены и кризисы"];
+const TOPIC_LABELS = {anxiety:"Тревога и паника", depression:"Апатия и нет сил", burnout:"Выгорание", relationships:"Отношения", couples:"Кризис в паре", selfesteem:"Самооценка", trauma:"Травма", grief:"Утрата и горе", teens:"Подростки", parenting:"Дети и родители", perinatal:"Беременность и материнство", career:"Работа и прокрастинация", anger:"Злость и раздражение", addiction:"Зависимости", eating:"Отношения с едой", crisis:"Перемены и кризисы"};
+const APPROACH_LABELS = {cbt:"КПТ", act:"ACT", gestalt:"Гештальт-терапия", existential:"Экзистенциальная терапия", family:"Системная семейная терапия", eft:"Эмоционально-фокусированная терапия", psychoanalytic:"Психоаналитическая терапия", art:"Арт-терапия", emdr:"EMDR", somatic:"Телесно-ориентированная терапия", schema:"Схема-терапия", person:"Клиент-центрированная терапия", perinatal:"Перинатальная психология"};
+const TOPICS = Object.values(TOPIC_LABELS);
 const AUDIENCE = {me:"Мне", pair:"Паре", teen:"Подростку", parent:"Родителю"};
 const FORMATS = {video:"Видео", chat:"Чат", offline:"Очно"};
+const CLIENT_MAP = {adults:["me","Взрослые"], couples:["pair","Пары"], teens:["teen","Подростки 12–17 лет"], parents:["parent","Родители"]};
+const CITY_IN = {"Москва":"Москве","Санкт-Петербург":"Петербурге","Екатеринбург":"Екатеринбурге"};
+const TIER_PRICE = {junior:2500, middle:4250, senior:6500};
+const COUPLE_PRICE = {junior:3750, middle:6400, senior:9750};
+const COLORS = ["#FBEADB","#DDEFE8","#E6E3F3","#F6E9C9","#F3DDDD","#DDE8F3","#EDE6DA","#E0EDD8","#F8E1EA","#E3EFEF"];
 
-const PSY = [
-  {id:"vera-gromova", name:"Вера Громова", g:"f", role:"Клинический психолог, КПТ-терапевт", exp:11, aud:["me"], audText:"Взрослые", formats:["video","chat"], approaches:["КПТ"], price:4500, color:"#FBEADB",
-   quote:"Тревога, панические атаки и мысли, которые крутятся по кругу", topics:["Тревога и паника","Нет сил","Выгорание","Самооценка"], slots:[[0,["19:30"]],[1,["10:00","15:00","18:00"]]],
-   about:"Работаю с тревогой в самых разных формах: от постоянного «а вдруг» до панических атак, из-за которых человек перестаёт ездить в метро. Вместе разбираем, что запускает тревогу, и пробуем новые способы с ней обходиться — сначала на встречах, потом в жизни.",
-   edu:["МГУ им. Ломоносова, факультет психологии — клиническая психология","Программа подготовки КПТ-терапевтов, 2 года","Регулярная супервизия с 2016 года"]},
-  {id:"artem-belov", name:"Артём Белов", g:"m", role:"Экзистенциальный терапевт", exp:18, aud:["me"], audText:"Взрослые", formats:["video","offline"], city:"Москве", approaches:["Экзистенциальная терапия"], price:6000, color:"#DDEFE8",
-   quote:"Когда привычная жизнь закончилась, а новая ещё не началась", topics:["Перемены и кризисы","Утрата и горе","Нет сил"], slots:[[1,["10:00","12:00"]],[3,["11:00","16:00"]]],
-   about:"Помогаю в периоды, когда рушится привычный порядок: переезд, развод, уход с работы, потеря близкого. Не тороплю и не даю готовых ответов — помогаю найти свои.",
-   edu:["СПбГУ, психологический факультет","Экзистенциальная психотерапия, 4-летняя программа","Личная терапия более 300 часов"]},
-  {id:"natalya-shevchenko", name:"Наталья Шевченко", g:"f", role:"Семейный терапевт, терапевт пар", exp:13, aud:["pair","parent","me"], audText:"Пары, взрослые, родители", formats:["video","offline"], city:"Петербурге", approaches:["Системная семейная терапия","Эмоционально-фокусированная терапия"], price:5500, color:"#E6E3F3",
-   quote:"Для пар, которые устали ссориться по одному и тому же сценарию", topics:["Кризис в паре","Отношения","Дети и родители","Перемены и кризисы"], slots:[[0,["20:00"]],[1,["11:00","14:00"]]],
-   about:"Работаю с парами и семьями. На встречах мы замечаем круг, в который попадает пара, и учимся выходить из него раньше, чем ссора наберёт обороты. Можно прийти и одному, если партнёр пока не готов.",
-   edu:["РГПУ им. Герцена, психология","Системная семейная терапия, 3 года","Эмоционально-фокусированная терапия пар, базовый и продвинутый курс"]},
-  {id:"liza-andreeva", name:"Лиза Андреева", g:"f", role:"Детский и подростковый психолог", exp:5, aud:["teen","parent"], audText:"Подростки 12–17 лет, родители", formats:["video"], approaches:["КПТ","Арт-терапия"], price:3000, color:"#F6E9C9",
-   quote:"Помогаю подросткам и родителям снова слышать друг друга", topics:["Подростки","Дети и родители","Тревога и паника","Самооценка"], slots:[[1,["17:00","18:00"]],[2,["16:00"]]],
-   about:"Работаю с подростками 12–17 лет и их родителями. С подростком — отдельно и конфиденциально, с родителями — на отдельных встречах, где обсуждаем, как поддержать, не давя.",
-   edu:["МГППУ, психология образования","КПТ для детей и подростков","Арт-терапия, 1 год"]},
-  {id:"irina-pavlova", name:"Ирина Павлова", g:"f", role:"Травматерапевт, EMDR-терапевт", exp:9, aud:["me"], audText:"Взрослые", formats:["video"], approaches:["EMDR","Телесно-ориентированная терапия"], price:5000, color:"#F3DDDD",
-   quote:"Последствия трудных событий: аварии, насилие, внезапные потери", topics:["Травма","Тревога и паника","Утрата и горе"], slots:[[3,["12:00","13:00"]],[4,["10:00"]]],
-   about:"Работаю с последствиями травматичных событий — когда прошлое всё ещё вмешивается в настоящее: снится, вспоминается, заставляет избегать мест и людей. Двигаемся в темпе, который безопасен для вас.",
-   edu:["ЮФУ, клиническая психология","EMDR, уровни 1 и 2","Сертификат по телесно-ориентированной терапии травмы"]},
-  {id:"oleg-rudenko", name:"Олег Руденко", g:"m", role:"Психолог, ACT и КПТ", exp:7, aud:["me"], audText:"Взрослые", formats:["video","chat"], approaches:["ACT","КПТ"], price:4000, color:"#DDE8F3",
-   quote:"Выгорание, прокрастинация и перфекционизм у тех, кто много работает", topics:["Выгорание","Работа и прокрастинация","Самооценка","Перемены и кризисы"], slots:[[0,["21:00"]],[1,["09:00","19:00"]]],
-   about:"Сам пришёл в психологию из IT и хорошо знаю, как работа может съесть всё остальное. Помогаю вернуть силы, разобраться с откладыванием и перестать требовать от себя невозможного.",
-   edu:["НИУ ВШЭ, психология","Терапия принятия и ответственности (ACT), 1,5 года","КПТ, базовый курс"]},
-  {id:"tamara-lvova", name:"Тамара Львова", g:"f", role:"Психоаналитический психотерапевт", exp:22, aud:["me"], audText:"Взрослые", formats:["video","offline"], city:"Москве", approaches:["Психоаналитическая терапия"], price:6000, color:"#EDE6DA",
-   quote:"Долгая работа для тех, кто хочет понять, откуда берутся повторяющиеся сценарии", topics:["Отношения","Самооценка","Нет сил"], slots:[[2,["11:00","15:00"]],[5,["12:00"]]],
-   about:"Провожу долгосрочную терапию, обычно одну-две встречи в неделю. Подходит тем, кто замечает, что снова и снова попадает в похожие ситуации, и хочет разобраться почему.",
-   edu:["МГУ, факультет психологии","Психоаналитическая психотерапия, 5 лет","Член профессиональной ассоциации, регулярная супервизия"]},
-  {id:"denis-melnikov", name:"Денис Мельников", g:"m", role:"Гештальт-терапевт", exp:12, aud:["me"], audText:"Взрослые", formats:["video","offline"], city:"Казани", approaches:["Гештальт-терапия"], price:5000, color:"#E0EDD8",
-   quote:"Злость, обида и чувства, которые «не принято» показывать", topics:["Злость и раздражение","Зависимости","Отношения"], slots:[[0,["19:00"]],[2,["13:00","18:00"]]],
-   about:"Помогаю замечать и выражать чувства, не разрушая отношения. Много работаю с мужчинами, которым непросто говорить о себе, и с зависимым поведением.",
-   edu:["КФУ, психология","Гештальт-терапия, 4 года","Работа с зависимостями, повышение квалификации"]},
-  {id:"alina-safina", name:"Алина Сафина", g:"f", role:"Перинатальный психолог", exp:8, aud:["me","pair","parent"], audText:"Взрослые, пары, родители", formats:["video","chat"], approaches:["Перинатальная психология","Клиент-центрированная терапия"], price:4000, color:"#F8E1EA",
-   quote:"Беременность, роды и первый год с ребёнком", topics:["Беременность и материнство","Тревога и паника","Кризис в паре"], slots:[[1,["12:00"]],[2,["10:00","14:00"]]],
-   about:"Поддерживаю во время беременности, после родов и в первые годы родительства. Работаю с тревогой за ребёнка, усталостью, чувством вины и переменами в паре.",
-   edu:["УрФУ, психология","Перинатальная психология, 2 года","Клиент-центрированная терапия"]},
-  {id:"kseniya-vedeneeva", name:"Ксения Веденеева", g:"f", role:"Психолог, схема-терапевт", exp:10, aud:["me"], audText:"Взрослые", formats:["video","chat"], approaches:["Схема-терапия"], price:4500, color:"#E3EFEF",
-   quote:"Внутренний критик, созависимость и сложные отношения с едой", topics:["Самооценка","Отношения с едой","Отношения","Нет сил"], slots:[[1,["16:00","20:00"]],[3,["10:00"]]],
-   about:"Работаю с глубинными убеждениями о себе: «я недостаточно хороша», «меня бросят», «нельзя расслабляться». Помогаю ослабить внутреннего критика и строить отношения, в которых не приходится растворяться.",
-   edu:["ТГУ, клиническая психология","Схема-терапия, сертификация","Работа с расстройствами пищевого поведения, повышение квалификации"]}
-];
+/* свободные окна считаются из расписания специалиста: детерминированно, на 2 недели вперёд */
+function hash(s){ let h=2166136261; for(const c of s){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } return h>>>0; }
+function buildSlots(p){
+  const now=new Date(), out=[];
+  for(let d=0; d<14 && out.length<2; d++){
+    const date=new Date(now); date.setDate(now.getDate()+d);
+    const wd=(date.getDay()+6)%7;
+    if(!p.schedule.days.includes(wd)) continue;
+    const key=date.toISOString().slice(0,10), times=[];
+    for(let h=p.schedule.from; h<p.schedule.to; h++){
+      if(d===0 && h<=now.getHours()+1) continue;
+      if(hash(p.id+key+h)%3===0) times.push(String(h).padStart(2,"0")+":00");
+    }
+    if(times.length) out.push([d,times.slice(0,4)]);
+  }
+  return out.length?out:[[1,[String(p.schedule.from).padStart(2,"0")+":00"]]];
+}
+const PSY = PSY_RAW.map((r,i)=>({
+  ...r,
+  g:r.gender, role:r.title, headline:r.tagline,
+  exp:new Date().getFullYear()-r.practiceSince,
+  aud:r.clients.map(c=>CLIENT_MAP[c][0]),
+  audText:r.clients.map(c=>CLIENT_MAP[c][1]).join(", ").replace(/, (.)/g,(m,c)=>", "+c.toLowerCase()),
+  approaches:r.approaches.map(a=>APPROACH_LABELS[a]),
+  topics:r.topics.map(t=>TOPIC_LABELS[t]),
+  price:TIER_PRICE[r.tier], couplePrice:r.clients.includes("couples")?COUPLE_PRICE[r.tier]:null,
+  city:CITY_IN[r.city]||r.city,
+  color:COLORS[i%COLORS.length],
+  face:PHOTO_BASE+r.id+"-face.webp", photo:PHOTO_BASE+r.id+".webp",
+  slots:buildSlots(r)
+}));
 const APPROACHES = [...new Set(PSY.flatMap(p=>p.approaches))];
 
 /* ---- helpers ---- */
@@ -66,7 +62,7 @@ function dayLabel(off){
 }
 const firstSlot = p => `${dayLabel(p.slots[0][0]).toLowerCase()} в ${p.slots[0][1][0]}`;
 const formatText = p => p.formats.map(f=>f==="offline"?`очно в ${p.city}`:FORMATS[f].toLowerCase()).join(", ").replace(/^./,c=>c.toUpperCase());
-const avatar = (p,cls="") => `<span class="ava ${cls}" style="background:${p.color}" aria-hidden="true">${initials(p.name)}</span>`;
+const avatar = (p,cls="") => `<span class="ava ${cls}" style="background:${p.color}" aria-hidden="true"><img src="${cls==="lg"?p.photo:p.face}" alt="" loading="lazy" onerror="this.remove()"><i>${initials(p.name)}</i></span>`;
 const LOGO = `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16" r="9" fill="#234035"/><circle cx="20" cy="16" r="9" fill="#E9A27A" fill-opacity=".85"/></svg>`;
 
 /* ---- layout ---- */
@@ -75,9 +71,9 @@ function renderLayout(){
   const nav = [["psychologists","/psychologists","Психологи"],["ai","/ai","ИИ-собеседник"],["blog","/blog","Журнал"],["analytics","/analytics","Аналитика"],["join","/join","Психологам"]];
   const h = $("#site-header");
   if(h) h.outerHTML = `
-  <div class="demo">Демо-проект: психологи и их анкеты вымышлены, заявки сохраняются, но никто не перезвонит.</div>
+  <div class="demo">Демо-проект: психологи, анкеты и отзывы вымышлены, фотографии созданы нейросетью. Заявки сохраняются, но никто не перезвонит.</div>
   <header class="site"><div class="wrap nav">
-    <a class="logo" href="/" aria-label="Рядом — на главную">${LOGO}рядом</a>
+    <a class="logo" href="/" aria-label="Рядом — на главную">${LOGO}Рядом</a>
     <ul id="menu">${nav.map(([k,href,t])=>`<li><a href="${href}"${k===page?' aria-current="page"':""}>${t}</a></li>`).join("")}</ul>
     <div class="cta"><button class="burger" type="button" aria-expanded="false" aria-controls="menu">Меню</button><button class="btn" type="button" data-open-booking>Записаться</button></div>
   </div></header>`;
@@ -92,7 +88,7 @@ function renderLayout(){
     </div></div></div></section>
   <footer class="site"><div class="wrap">
     <div class="foot">
-      <div><a class="logo" href="/">${LOGO}рядом</a><p class="muted" style="margin-top:10px;max-width:320px">Психологи онлайн, ИИ-собеседник и письма поддержки. Выберите, с чего начать.</p></div>
+      <div><a class="logo" href="/">${LOGO}Рядом</a><p class="muted" style="margin-top:10px;max-width:320px">Психологи онлайн, ИИ-собеседник и письма поддержки. Выберите, с чего начать.</p></div>
       <div><h4>Клиентам</h4><ul><li><a href="/psychologists">Все психологи</a></li><li><a href="#" data-open-booking>Записаться</a></li><li><a href="/ai">ИИ-собеседник</a></li><li><a href="/#faq">Вопросы и ответы</a></li></ul></div>
       <div><h4>Специалистам</h4><ul><li><a href="/join">Как попасть в команду</a></li><li><a href="/blog">Журнал</a></li><li><a href="/analytics">Аналитика и калькулятор</a></li></ul></div>
     </div>

@@ -4,204 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Рядом — психологи онлайн</title>
-<meta name="description" content="Психологи онлайн: выберите специалиста по запросу, опыту и подходу и запишитесь на видеовстречу. Письма поддержки раз в неделю.">
+<meta name="description" content="Психологи онлайн: выберите специалиста по запросу, опыту и подходу и запишитесь на видеовстречу. ИИ-собеседник и письма поддержки.">
 <meta name="theme-color" content="#F3F4F0">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='12' cy='16' r='9' fill='%23234035'/%3E%3Ccircle cx='20' cy='16' r='9' fill='%23E9A27A' fill-opacity='.85'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#F3F4F0; --ink:#1F3A32; --muted:#5A6B63; --line:#DCE3DE; --card:#FFFFFF;
-  --warm:#FBEADB; --warm-ink:#8A4A1C; --mint:#DDEFE8; --accent:#234035; --soft:#E8EDE9;
-  --ok:#2F7A5B; --err:#B3412E;
-  --serif:"Literata",Georgia,"Times New Roman",serif;
-  --sans:"Onest",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.12;margin:0;letter-spacing:-.01em}
-h1{font-size:clamp(40px,6.4vw,76px)}
-h2{font-size:clamp(28px,3.6vw,40px)}
-h3{font-size:22px}
-p{margin:0}
-a{color:inherit}
-.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-section{padding:72px 0}
-.muted{color:var(--muted)}
-.eyebrow{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-
-/* banner & header */
-.demo{background:var(--warm);color:var(--warm-ink);font-size:13px;text-align:center;padding:8px 16px}
-header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;gap:28px;height:64px}
-.logo{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:24px;text-decoration:none}
-.logo svg{width:28px;height:28px}
-.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:15px}
-.nav ul a{text-decoration:none;color:var(--muted)}
-.nav ul a:hover{color:var(--ink)}
-.nav .btn{margin-left:auto}
-@media(max-width:860px){.nav ul{display:none}}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font:600 15px var(--sans);cursor:pointer;text-decoration:none;background:var(--accent);color:#fff;transition:transform .15s,opacity .15s}
-.btn:hover{transform:translateY(-1px)}
-.btn:disabled{opacity:.55;cursor:default;transform:none}
-.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.btn.light{background:#fff;color:var(--ink)}
-
-/* hero */
-.hero{padding:56px 0 72px}
-.hero-top{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end}
-.hero-top p{font-size:19px;color:var(--muted);max-width:420px}
-@media(max-width:860px){.hero-top{grid-template-columns:1fr}}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0 40px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 18px;font:15px var(--sans);color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
-.chip:hover{border-color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
-.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:860px){.duo{grid-template-columns:1fr}}
-.tile{border-radius:32px;padding:36px;display:flex;flex-direction:column;gap:18px;min-height:340px}
-.tile.warm{background:var(--warm)}
-.tile.mint{background:var(--mint)}
-.tile h2{font-size:34px}
-.faces{display:flex;align-items:center}
-.faces .ava{width:48px;height:48px;font-size:16px;margin-left:-10px;border:3px solid var(--warm)}
-.faces .ava:first-child{margin-left:0}
-.faces .more{margin-left:10px;font-size:14px;color:var(--warm-ink)}
-.note{font-size:14px;color:var(--warm-ink);display:flex;align-items:center;gap:8px}
-.note::before{content:"";width:8px;height:8px;border-radius:50%;background:#3E9B6E}
-.tile .spacer{flex:1}
-.inline-form{display:flex;gap:8px;flex-wrap:wrap}
-.inline-form input{flex:1 1 200px}
-
-/* inputs */
-input,select,textarea{width:100%;font:16px var(--sans);color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;outline:none;transition:border-color .15s}
-input:focus,select:focus,textarea:focus{border-color:var(--ink)}
-textarea{min-height:110px;resize:vertical}
-label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--muted)}
-.msg{font-size:14px;min-height:20px}
-.msg.ok{color:var(--ok)} .msg.err{color:var(--err)}
-
-/* psychologists */
-.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:36px;flex-wrap:wrap}
-.head p{max-width:520px;margin-top:12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:620px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:14px}
-.card[hidden]{display:none}
-.who{display:flex;gap:14px;align-items:center}
-.ava{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:500 20px var(--serif);color:var(--ink);flex:none}
-.who h3{font-size:21px}
-.who small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tags span{font-size:13px;background:var(--soft);border-radius:999px;padding:4px 11px}
-.meta{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
-.meta b{color:var(--ink);font-weight:600}
-.card .btn{width:100%}
-.empty{grid-column:1/-1;text-align:center;padding:40px;background:#fff;border-radius:24px}
-
-/* articles */
-.arts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media(max-width:860px){.arts{grid-template-columns:1fr}}
-.art{background:#fff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
-.art .pic{aspect-ratio:16/10;display:grid;place-items:center}
-.art .pic svg{width:46%;height:auto}
-.art div.txt{padding:22px;display:flex;flex-direction:column;gap:10px}
-.art h3{font-size:20px}
-
-/* compare */
-.compare{background:#fff;border-radius:28px;overflow:hidden}
-.row{display:grid;grid-template-columns:200px 1fr 1fr;border-top:1px solid var(--line)}
-.row:first-child{border-top:0}
-.row>div{padding:20px 24px}
-.row.th>div{font-family:var(--serif);font-size:22px}
-.row.th>div:nth-child(2){background:var(--warm)}
-.row.th>div:nth-child(3){background:var(--mint)}
-.row>div:first-child{color:var(--muted);font-size:15px}
-@media(max-width:760px){.row{grid-template-columns:1fr 1fr}.row>div:first-child{grid-column:1/-1;padding-bottom:0;font-weight:600;color:var(--ink)}.row.th>div:first-child{display:none}}
-
-/* steps & criteria */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-@media(max-width:860px){.split{grid-template-columns:1fr}}
-.list{display:flex;flex-direction:column;gap:14px;margin-top:28px}
-.item{background:#fff;border-radius:20px;padding:22px 24px}
-.item h3{font-size:20px;margin-bottom:6px}
-.step{display:flex;gap:18px;align-items:flex-start}
-.num{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font:500 18px var(--serif)}
-
-/* booking */
-.booking{background:var(--mint);border-radius:36px;padding:48px;display:grid;grid-template-columns:1fr 1.3fr;gap:48px}
-@media(max-width:900px){.booking{grid-template-columns:1fr;padding:28px}}
-.booking form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.booking .full{grid-column:1/-1}
-@media(max-width:560px){.booking form{grid-template-columns:1fr}}
-.check{flex-direction:row;align-items:flex-start;gap:10px;font-size:14px}
-.check input{width:18px;height:18px;margin:2px 0 0;flex:none;accent-color:var(--accent)}
-.perks{list-style:none;padding:0;margin:24px 0 0;display:flex;flex-direction:column;gap:12px}
-.perks li{display:flex;gap:10px}
-.perks li::before{content:"✓";color:var(--ok);font-weight:600}
-
-/* faq */
-.faq>*{max-width:860px}
-details{background:#fff;border-radius:18px;margin-top:10px;padding:0 24px}
-summary{list-style:none;cursor:pointer;padding:20px 0;font-size:18px;display:flex;justify-content:space-between;gap:16px}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-size:24px;line-height:1;transition:transform .2s}
-details[open] summary::after{transform:rotate(45deg)}
-details p{padding:0 0 22px;color:var(--muted)}
-
-/* subscribe */
-.sub{background:var(--accent);color:#fff;border-radius:36px;padding:56px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
-.sub p{color:#C9D8D1}
-.sub .msg.ok{color:#9FE0BF}.sub .msg.err{color:#FFB4A3}
-.sub input{border-color:transparent}
-@media(max-width:860px){.sub{grid-template-columns:1fr;padding:32px 24px}}
-
-/* crisis & footer */
-.crisis{background:var(--warm);border-radius:28px;padding:36px;display:grid;grid-template-columns:1fr 1.4fr;gap:32px}
-.crisis p{color:var(--warm-ink)}
-.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.phones a{text-decoration:none;display:block}
-.phones b{display:block;font:500 24px var(--serif)}
-.phones span{font-size:13px;color:var(--warm-ink)}
-@media(max-width:860px){.crisis{grid-template-columns:1fr}.phones{grid-template-columns:1fr}}
-footer{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:72px}
-.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;font-size:15px}
-.foot ul{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:8px}
-.foot a{text-decoration:none;color:var(--muted)}
-.foot a:hover{color:var(--ink)}
-.foot h4{margin:0;font-size:15px}
-@media(max-width:760px){.foot{grid-template-columns:1fr}}
-.copy{margin-top:40px;font-size:13px;color:var(--muted)}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-</style>
+<link rel="stylesheet" href="/styles.css">
 </head>
-<body>
-
-<div class="demo">Демо-проект: психологи и их анкеты вымышлены, заявки сохраняются, но никто не перезвонит.</div>
-
-<header>
-  <div class="wrap nav">
-    <a class="logo" href="#top" aria-label="Рядом — на главную">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16" r="9" fill="#234035"/><circle cx="20" cy="16" r="9" fill="#E9A27A" fill-opacity=".85"/></svg>
-      рядом
-    </a>
-    <ul>
-      <li><a href="#specialists">Психологи</a></li>
-      <li><a href="#letters">Письма</a></li>
-      <li><a href="#journal">Журнал</a></li>
-      <li><a href="#how">Как это работает</a></li>
-      <li><a href="#faq">Вопросы</a></li>
-    </ul>
-    <a class="btn" href="#booking">Записаться</a>
-  </div>
-</header>
-
+<body data-page="home">
+<div id="site-header"></div>
 <main id="top">
-  <!-- HERO -->
   <section class="hero">
     <div class="wrap">
       <div class="hero-top">
@@ -211,31 +23,26 @@ footer{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:72px}
       <div class="chips" id="chips" role="group" aria-label="Темы запроса"></div>
       <div class="duo">
         <article class="tile warm">
-          <span class="eyebrow">Встреча с психологом</span>
-          <h2>Шесть специалистов с опытом от 5 до 18 лет</h2>
-          <p>Видеовстреча — 50 минут. Стоимость от 3 000 ₽, первая консультация — со скидкой 20%.</p>
+          <span class="eyebrow">Психологи</span>
+          <h2 id="psyTitle">Десять специалистов</h2>
+          <p id="psySub"></p>
           <div class="faces" id="faces"></div>
           <div class="spacer"></div>
-          <div class="note">Ближайшее окно — сегодня в 19:30</div>
-          <div><a class="btn" href="#specialists">Выбрать психолога</a></div>
+          <div class="note" id="nearest"></div>
+          <div><a class="btn" href="/psychologists">Выбрать психолога</a></div>
         </article>
-        <article class="tile mint" id="letters">
-          <span class="eyebrow">Письма «Рядом»</span>
-          <h2>Короткое письмо поддержки каждое воскресенье</h2>
-          <p>Одна практика на неделю, разбор частого вопроса и заметка от психолога. Без спама, отписаться — в один клик.</p>
+        <article class="tile mint">
+          <span class="eyebrow">ИИ-собеседник</span>
+          <h2>Выговориться, когда психолог ещё не нашёлся</h2>
+          <p>Голосовой собеседник для поддержки между встречами. Сейчас работает демо-версия: живой разговор пока отключён.</p>
           <div class="spacer"></div>
-          <form class="inline-form" data-form="subscribe" novalidate>
-            <label class="sr" for="sub1">Email</label>
-            <input id="sub1" type="email" name="email" placeholder="ваш@email.ru" autocomplete="email" required>
-            <button class="btn" type="submit">Подписаться</button>
-          </form>
-          <p class="msg" aria-live="polite"></p>
+          <span class="status" style="align-self:flex-start">Демо-режим · живой разговор скоро</span>
+          <div><a class="btn ghost" href="/ai">Об ИИ-собеседнике</a></div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- SPECIALISTS -->
   <section id="specialists">
     <div class="wrap">
       <div class="head">
@@ -243,53 +50,49 @@ footer{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:72px}
           <h2>С кем можно поговорить</h2>
           <p class="muted">У каждого специалиста — профильное образование, личная терапия и регулярная супервизия. Выбирайте по теме, подходу и удобному времени.</p>
         </div>
-        <button class="btn ghost" type="button" id="resetFilter" hidden>Показать всех</button>
+        <a class="btn ghost" href="/psychologists" id="allLink">Все психологи</a>
       </div>
       <div class="grid" id="grid"></div>
     </div>
   </section>
 
-  <!-- JOURNAL -->
-  <section id="journal">
-    <div class="wrap">
-      <div class="head">
-        <div>
-          <h2>Журнал</h2>
-          <p class="muted">Спокойные тексты о том, как устроена психотерапия и что можно сделать самому уже сегодня.</p>
-        </div>
-      </div>
-      <div class="arts">
-        <article class="art">
-          <div class="pic" style="background:var(--warm)"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="34" fill="none" stroke="#8A4A1C" stroke-width="3"/><path d="M50 16v34l20 12" fill="none" stroke="#8A4A1C" stroke-width="3" stroke-linecap="round"/></svg></div>
-          <div class="txt"><span class="muted" style="font-size:13px">5 минут чтения</span><h3>Сколько встреч нужно, чтобы стало легче</h3><p class="muted">Почему единственного ответа нет и как понять, что терапия двигается.</p></div>
-        </article>
-        <article class="art">
-          <div class="pic" style="background:var(--mint)"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M20 70c10-30 50-30 60 0" fill="none" stroke="#234035" stroke-width="3" stroke-linecap="round"/><circle cx="35" cy="38" r="9" fill="#234035"/><circle cx="65" cy="38" r="9" fill="#234035" fill-opacity=".5"/></svg></div>
-          <div class="txt"><span class="muted" style="font-size:13px">4 минуты чтения</span><h3>Как выбрать психолога и не потеряться в подходах</h3><p class="muted">КПТ, гештальт, системная терапия — простыми словами и без терминов.</p></div>
-        </article>
-        <article class="art">
-          <div class="pic" style="background:var(--soft)"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 82C22 62 18 42 30 30c8-8 16-4 20 4 4-8 12-12 20-4 12 12 8 32-20 52z" fill="none" stroke="#234035" stroke-width="3" stroke-linejoin="round"/></svg></div>
-          <div class="txt"><span class="muted" style="font-size:13px">6 минут чтения</span><h3>Выгорание: пять сигналов, которые легко пропустить</h3><p class="muted">Когда усталость — это уже не про «надо просто выспаться».</p></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPARE -->
   <section>
     <div class="wrap">
-      <div class="head"><div><h2>Встреча или письма?</h2><p class="muted">Одно не заменяет другое. Письма помогают держать фокус между встречами, а работа с психологом — разобраться глубоко.</p></div></div>
-      <div class="compare">
-        <div class="row th"><div></div><div>Психолог</div><div>Письма «Рядом»</div></div>
-        <div class="row"><div>Когда подходит</div><div>Хочется разобраться в отношениях, тревоге, повторяющихся сценариях или пережить трудный период.</div><div>Нужна небольшая опора каждую неделю и простые практики, которые можно делать самому.</div></div>
-        <div class="row"><div>Формат</div><div>Видеовстреча 50 минут в удобное время.</div><div>Одно письмо в воскресенье, читается за 5 минут.</div></div>
-        <div class="row"><div>Важно знать</div><div>Если с психологом не сложился контакт, можно бесплатно выбрать другого.</div><div>Это не терапия и не замена консультации специалиста.</div></div>
-        <div class="row"><div>Стоимость</div><div>От 3 000 ₽ за встречу, зависит от опыта специалиста.</div><div>Бесплатно.</div></div>
+      <div class="head">
+        <div><h2>Журнал</h2><p class="muted">Спокойные тексты о том, как устроена психотерапия, и заметки для специалистов о профессии.</p></div>
+        <a class="btn ghost" href="/blog">Все статьи</a>
+      </div>
+      <div class="arts" id="arts"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sub">
+        <div>
+          <span class="eyebrow" style="color:#9FC0B2">Аналитика</span>
+          <h2 style="margin-top:10px">Психология в цифрах</h2>
+          <p style="margin-top:14px">Калькулятор дохода для практикующих психологов: цена сессии, нагрузка, налоги и комиссии — и сколько остаётся на руки.</p>
+        </div>
+        <div><a class="btn light" href="/analytics">Открыть калькулятор</a></div>
       </div>
     </div>
   </section>
 
-  <!-- CRITERIA + STEPS -->
+  <section>
+    <div class="wrap">
+      <div class="head"><div><h2>Психолог или ИИ-собеседник?</h2><p class="muted">Это не соперники. ИИ помогает выговориться прямо сейчас, психолог — разобраться глубоко и надолго.</p></div></div>
+      <div class="compare">
+        <div class="row th"><div></div><div>Психолог</div><div>ИИ-собеседник</div></div>
+        <div class="row"><div>Когда подходит</div><div>Хочется разобраться в отношениях, тревоге, повторяющихся сценариях или пережить трудный период.</div><div>Нужно выговориться или успокоиться прямо сейчас, а сил искать специалиста нет.</div></div>
+        <div class="row"><div>Когда можно</div><div>По записи. У многих специалистов есть окна сегодня или завтра.</div><div>Живой режим пока недоступен — работает демо.</div></div>
+        <div class="row"><div>Формат</div><div>Видеовстреча 50 минут, у некоторых — чат или очная встреча.</div><div>Голосовой разговор с субтитрами или переписка.</div></div>
+        <div class="row"><div>Важно знать</div><div>Если контакт не сложился, можно бесплатно выбрать другого специалиста.</div><div>Не ставит диагнозы и не заменяет терапию. В кризисе подскажет, куда обратиться.</div></div>
+        <div class="row"><div>Стоимость</div><div>От 3 000 ₽ за встречу — зависит от опыта специалиста.</div><div>Демо бесплатно, оплата не подключена.</div></div>
+      </div>
+    </div>
+  </section>
+
   <section id="how">
     <div class="wrap split">
       <div>
@@ -304,7 +107,7 @@ footer{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:72px}
       <div>
         <h2>Как проходит первая встреча</h2>
         <div class="list">
-          <div class="item step"><span class="num">1</span><div><h3>Оставьте заявку</h3><p class="muted">Выберите специалиста или просто опишите запрос — поможем подобрать.</p></div></div>
+          <div class="item step"><span class="num">1</span><div><h3>Оставьте заявку</h3><p class="muted">Выберите специалиста и время или просто опишите запрос — поможем подобрать.</p></div></div>
           <div class="item step"><span class="num">2</span><div><h3>Подтвердите время</h3><p class="muted">Координатор свяжется удобным способом и пришлёт ссылку на встречу.</p></div></div>
           <div class="item step"><span class="num">3</span><div><h3>Познакомьтесь</h3><p class="muted">50 минут, чтобы рассказать, что происходит, и понять, как специалист может помочь.</p></div></div>
         </div>
@@ -312,226 +115,92 @@ footer{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:72px}
     </div>
   </section>
 
-  <!-- BOOKING -->
   <section id="booking">
     <div class="wrap">
       <div class="booking">
         <div>
           <h2>Записаться на встречу</h2>
           <p class="muted" style="margin-top:14px">Оставьте контакты — координатор свяжется в течение рабочего дня, уточнит детали и подтвердит время.</p>
-          <ul class="perks">
-            <li>Первая встреча со скидкой 20%</li>
-            <li>Можно бесплатно сменить специалиста</li>
-            <li>Данные видит только координатор</li>
-          </ul>
+          <ul class="perks"><li>Первая встреча со скидкой 20%</li><li>Можно бесплатно сменить специалиста</li><li>Данные видит только координатор</li></ul>
         </div>
-        <form data-form="booking" novalidate>
-          <label>Как к вам обращаться
-            <input name="name" required maxlength="100" autocomplete="given-name" placeholder="Имя">
-          </label>
-          <label>Телефон или Telegram
-            <input name="contact" required maxlength="120" autocomplete="tel" placeholder="+7 … или @username">
-          </label>
-          <label>Специалист
-            <select name="psychologist" id="psySelect"><option value="">Помогите подобрать</option></select>
-          </label>
-          <label>Тема
-            <select name="topic" id="topicSelect"><option value="">Пока не знаю</option></select>
-          </label>
-          <label class="full">Удобное время
-            <input name="preferred_time" maxlength="100" placeholder="Например: будни после 19:00">
-          </label>
-          <label class="full">Что хочется обсудить (по желанию)
-            <textarea name="message" maxlength="1500" placeholder="Пара предложений — этого достаточно"></textarea>
-          </label>
-          <label class="check full"><input type="checkbox" name="consent" required> Согласен(на) на обработку персональных данных для связи по заявке</label>
-          <div class="full"><button class="btn" type="submit">Отправить заявку</button></div>
-          <p class="msg full" aria-live="polite"></p>
-        </form>
+        <form class="form-grid" data-form="booking" novalidate></form>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq">
     <div class="wrap faq">
       <h2>Частые вопросы</h2>
       <div style="margin-top:28px">
         <details><summary>Чем психолог отличается от психотерапевта и психиатра?</summary><p>Психолог работает разговором и не назначает лекарства. Психиатр — врач: ставит диагнозы и может выписать препараты. Психотерапевт в России тоже врач с дополнительной подготовкой. Если специалист увидит, что нужна медицинская помощь, он скажет об этом.</p></details>
         <details><summary>Как понять, что специалист мне подходит?</summary><p>После встречи обычно остаётся ощущение, что вас услышали, и хочется прийти ещё. Если этого нет после двух-трёх встреч — это нормально, специалиста можно сменить без доплаты.</p></details>
-        <details><summary>Сколько встреч понадобится?</summary><p>Конкретный вопрос иногда решается за 5–10 встреч, глубокая работа может занять месяцы. На первой встрече специалист предложит примерный план.</p></details>
+        <details><summary>Сколько встреч понадобится?</summary><p>Конкретный вопрос иногда решается за несколько недель, глубокая работа может занять месяцы. На первой встрече специалист предложит примерный план.</p></details>
         <details><summary>Это конфиденциально?</summary><p>Да. Психологи соблюдают профессиональную этику, а записи встреч не ведутся. Контакты из заявки видит только координатор.</p></details>
-        <details><summary>Что будет в письмах?</summary><p>Раз в неделю — одна практика, короткий разбор частого вопроса и заметка от кого-то из команды. Отписаться можно по ссылке в любом письме.</p></details>
+        <details><summary>Что умеет ИИ-собеседник?</summary><p>Выслушать, помочь успокоиться и разложить мысли по полочкам, подсказать специалиста по теме. Он не ставит диагнозы и не заменяет терапию. Сейчас работает в демо-режиме.</p></details>
         <details><summary>Что делать, если помощь нужна срочно?</summary><p>Не ждите записи — звоните по телефонам, указанным ниже. Наши специалисты не оказывают экстренную помощь.</p></details>
       </div>
     </div>
   </section>
 
-  <!-- SUBSCRIBE -->
-  <section>
+  <section id="letters">
     <div class="wrap">
-      <div class="sub">
+      <div class="sub" style="background:var(--mint);color:var(--ink)">
         <div>
           <h2>Немного поддержки по воскресеньям</h2>
-          <p style="margin-top:14px">Подпишитесь на письма «Рядом»: одна практика в неделю, пять минут чтения.</p>
+          <p class="muted" style="margin-top:14px">Письма «Рядом»: одна практика на неделю, разбор частого вопроса и заметка от специалиста. Пять минут чтения, отписаться — в один клик.</p>
         </div>
         <div>
-          <form class="inline-form" data-form="subscribe" novalidate>
+          <form class="inline-form" data-form="subscribe" data-source="letters" novalidate>
             <label class="sr" for="sub2">Email</label>
             <input id="sub2" type="email" name="email" placeholder="ваш@email.ru" autocomplete="email" required>
-            <button class="btn light" type="submit">Подписаться</button>
+            <button class="btn" type="submit">Подписаться</button>
           </form>
-          <p class="msg" aria-live="polite" style="margin-top:10px"></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CRISIS -->
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="crisis">
-        <div>
-          <h2 style="font-size:30px">Если сейчас очень тяжело</h2>
-          <p style="margin-top:12px">Если есть мысли причинить себе вред или вам угрожает опасность — позвоните прямо сейчас, не дожидаясь записи.</p>
-        </div>
-        <div class="phones">
-          <a href="tel:112"><b>112</b><span>Единый номер экстренных служб</span></a>
-          <a href="tel:88002000122"><b>8 800 2000-122</b><span>Детский телефон доверия, бесплатно</span></a>
-          <a href="tel:84959895050"><b>8 495 989-50-50</b><span>Экстренная психологическая помощь МЧС, круглосуточно</span></a>
+          <p class="msg" aria-live="polite" style="margin-top:10px;color:var(--muted)"></p>
         </div>
       </div>
     </div>
   </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <div class="foot">
-      <div>
-        <a class="logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16" r="9" fill="#234035"/><circle cx="20" cy="16" r="9" fill="#E9A27A" fill-opacity=".85"/></svg>рядом</a>
-        <p class="muted" style="margin-top:10px;max-width:320px">Психологи онлайн и письма поддержки. Выберите, с чего начать.</p>
-      </div>
-      <div><h4>Клиентам</h4><ul><li><a href="#specialists">Все психологи</a></li><li><a href="#booking">Записаться</a></li><li><a href="#letters">Письма</a></li><li><a href="#faq">Вопросы и ответы</a></li></ul></div>
-      <div><h4>Специалистам</h4><ul><li><a href="#how">Как попасть в команду</a></li><li><a href="#journal">Журнал</a></li><li><a href="#booking">Оставить заявку</a></li></ul></div>
-    </div>
-    <p class="copy">© 2026 «Рядом». Демо-проект. Не является медицинской услугой.</p>
-  </div>
-</footer>
-
+<div id="site-footer"></div>
+<script src="/common.js"></script>
+<script src="/articles.js"></script>
 <script>
-const SUPABASE_URL = "https://wuvadreohiphwevprwmk.supabase.co";
-const SUPABASE_KEY = "sb_publishable_QnCBQILrqr6PhrAE8521NA_edLJSMA-";
+const HOME_TOPICS = TOPICS.slice(0,11);
+const minExp = Math.min(...PSY.map(p=>p.exp)), maxExp = Math.max(...PSY.map(p=>p.exp)), minPrice = Math.min(...PSY.map(p=>p.price));
+$("#psyTitle").textContent = `${PSY.length} специалистов с опытом от ${minExp} до ${maxExp} лет`;
+$("#psySub").textContent = `Видеовстреча — 50 минут, от ${rub(minPrice)}. Первая консультация — со скидкой 20%.`;
+$("#faces").innerHTML = PSY.slice(0,4).map(p=>avatar(p)).join("") + `<span class="more">+${PSY.length-4}</span>`;
+const soonest = PSY.filter(p=>p.slots[0][0]===0).map(p=>p.slots[0][1][0]).sort()[0];
+$("#nearest").textContent = soonest ? `Ближайшее свободное время — сегодня в ${soonest}` : "Ближайшее свободное время — завтра";
 
-const TOPICS = ["Тревога","Отношения","Выгорание","Самооценка","Нет сил","Утрата","Травма","Дети и родители","Кризис в паре","Перемены"];
-const PSY = [
-  {name:"Вера Громова", role:"Клинический психолог, КПТ", exp:"11 лет", price:"4 500 ₽", slot:"сегодня в 19:30", tags:["Тревога","Выгорание","Нет сил"], color:"#FBEADB"},
-  {name:"Артём Белов", role:"Экзистенциальный терапевт", exp:"18 лет", price:"6 000 ₽", slot:"завтра в 10:00", tags:["Утрата","Перемены","Нет сил"], color:"#DDEFE8"},
-  {name:"Наталья Шевченко", role:"Семейный системный терапевт", exp:"13 лет", price:"5 500 ₽", slot:"сегодня в 20:00", tags:["Кризис в паре","Отношения","Дети и родители"], color:"#E6E3F3"},
-  {name:"Лиза Андреева", role:"Детский и подростковый психолог", exp:"5 лет", price:"3 000 ₽", slot:"завтра в 17:00", tags:["Дети и родители","Тревога","Самооценка"], color:"#F6E9C9"},
-  {name:"Ирина Павлова", role:"Травмафокусированный терапевт, EMDR", exp:"9 лет", price:"5 000 ₽", slot:"в четверг в 12:00", tags:["Травма","Тревога","Утрата"], color:"#F3DDDD"},
-  {name:"Олег Руденко", role:"Психолог, терапия принятия и ответственности", exp:"7 лет", price:"4 000 ₽", slot:"сегодня в 21:00", tags:["Выгорание","Самооценка","Перемены"], color:"#DDE8F3"}
-];
-const initials = n => n.split(" ").map(w=>w[0]).join("");
-const esc = s => s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const chips = $("#chips");
+chips.innerHTML = HOME_TOPICS.map(t=>`<button class="chip" type="button" aria-pressed="false">${t}</button>`).join("") + `<a class="chip" href="/psychologists">Все темы →</a>`;
 
-// chips
-const chips = document.getElementById("chips");
-chips.innerHTML = TOPICS.map(t=>`<button class="chip" type="button" aria-pressed="false">${t}</button>`).join("");
-// faces
-document.getElementById("faces").innerHTML = PSY.slice(0,4).map(p=>`<span class="ava" style="background:${p.color}">${initials(p.name)}</span>`).join("") + `<span class="more">+2 специалиста</span>`;
-// selects
-document.getElementById("psySelect").insertAdjacentHTML("beforeend", PSY.map(p=>`<option>${p.name}</option>`).join(""));
-document.getElementById("topicSelect").insertAdjacentHTML("beforeend", TOPICS.map(t=>`<option>${t}</option>`).join(""));
-
-// grid
-const grid = document.getElementById("grid");
-grid.innerHTML = PSY.map(p=>`
-  <article class="card" data-tags="${p.tags.join("|")}">
-    <div class="who"><span class="ava" style="background:${p.color}">${initials(p.name)}</span>
-      <div><h3>${p.name}</h3><small>${p.role}</small></div></div>
-    <div class="muted" style="font-size:14px">Опыт ${p.exp}</div>
-    <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
-    <div class="meta"><span>Ближайшее: <b>${p.slot}</b></span><span><b>${p.price}</b> / 50 мин</span></div>
-    <button class="btn" type="button" data-book="${p.name}">Записаться</button>
-  </article>`).join("") + `<div class="empty" hidden id="empty">По этой теме пока никого нет — оставьте заявку, и мы подберём специалиста.</div>`;
-
-// filtering
-const resetBtn = document.getElementById("resetFilter");
-function applyFilter(){
-  const on = [...chips.querySelectorAll('[aria-pressed="true"]')].map(b=>b.textContent);
-  let shown = 0;
-  grid.querySelectorAll(".card").forEach(c=>{
-    const tags = c.dataset.tags.split("|");
-    const ok = !on.length || on.some(t=>tags.includes(t));
-    c.hidden = !ok; if(ok) shown++;
-  });
-  document.getElementById("empty").hidden = shown>0;
-  resetBtn.hidden = !on.length;
+function card(p){
+  return `<article class="card">
+    <div class="who">${avatar(p)}<div><h3><a href="/psychologist?id=${p.id}">${p.name}</a></h3><small>${p.role}</small></div></div>
+    <div class="muted" style="font-size:14px">Опыт ${p.exp} ${yearsWord(p.exp)}</div>
+    <div class="tags">${p.topics.slice(0,3).map(t=>`<span>${t}</span>`).join("")}</div>
+    <div class="meta"><span>Ближайшее: <b>${firstSlot(p)}</b></span><span><b>${rub(p.price)}</b> / 50 мин</span></div>
+    <button class="btn" type="button" data-open-booking data-psy="${p.name}">Записаться</button>
+  </article>`;
 }
-chips.addEventListener("click", e=>{
-  const b = e.target.closest(".chip"); if(!b) return;
-  b.setAttribute("aria-pressed", b.getAttribute("aria-pressed")==="true" ? "false":"true");
-  applyFilter();
-  if(b.getAttribute("aria-pressed")==="true") document.getElementById("topicSelect").value = b.textContent;
-});
-resetBtn.addEventListener("click", ()=>{chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));applyFilter();});
-
-// book buttons
-grid.addEventListener("click", e=>{
-  const b = e.target.closest("[data-book]"); if(!b) return;
-  document.getElementById("psySelect").value = b.dataset.book;
-  document.getElementById("booking").scrollIntoView({behavior:"smooth"});
-  setTimeout(()=>document.querySelector('[data-form="booking"] [name="name"]').focus({preventScroll:true}),500);
-});
-
-// supabase insert
-async function insert(table, row){
-  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
-    method:"POST",
-    headers:{apikey:SUPABASE_KEY, "Content-Type":"application/json", Prefer:"return=minimal"},
-    body:JSON.stringify(row)
-  });
-  return r.status;
+function renderGrid(){
+  const on = $$('[aria-pressed="true"]',chips).map(b=>b.textContent);
+  const list = PSY.filter(p=>!on.length || on.some(t=>p.topics.includes(t)));
+  $("#grid").innerHTML = list.slice(0,6).map(card).join("") || `<div class="empty">По этой теме пока никого нет — оставьте заявку, и мы подберём специалиста.</div>`;
+  $("#allLink").href = "/psychologists" + (on.length ? "?topic="+encodeURIComponent(on.join(",")) : "");
+  $("#allLink").textContent = on.length ? `Все по теме (${list.length})` : `Все ${PSY.length} психологов`;
 }
-function setMsg(el, text, ok){ el.textContent = text; el.className = el.className.replace(/\b(ok|err)\b/g,"").trim() + (ok?" ok":" err"); }
-const msgFor = f => f.nextElementSibling?.classList.contains("msg") ? f.nextElementSibling : f.querySelector(".msg");
-
-document.querySelectorAll('[data-form="subscribe"]').forEach(f=>{
-  f.addEventListener("submit", async e=>{
-    e.preventDefault();
-    const msg = msgFor(f), btn = f.querySelector("button"), email = f.email.value.trim().toLowerCase();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ setMsg(msg,"Проверьте адрес — кажется, в нём опечатка.",false); f.email.focus(); return; }
-    btn.disabled = true;
-    try{
-      const s = await insert("subscribers",{email});
-      if(s===201){ setMsg(msg,"Готово! Первое письмо придёт в воскресенье.",true); f.reset(); }
-      else if(s===409){ setMsg(msg,"Этот адрес уже подписан — всё в порядке.",true); f.reset(); }
-      else setMsg(msg,"Не получилось подписаться. Попробуйте ещё раз чуть позже.",false);
-    }catch{ setMsg(msg,"Нет соединения. Проверьте интернет и попробуйте снова.",false); }
-    btn.disabled = false;
-  });
+chips.addEventListener("click",e=>{
+  const b=e.target.closest("button.chip"); if(!b) return;
+  const on = b.getAttribute("aria-pressed")!=="true";
+  b.setAttribute("aria-pressed", on);
+  renderGrid();
+  if(on){ const t=$('#booking [name="topic"]'); if(t) t.value=b.textContent; }
 });
-
-const bf = document.querySelector('[data-form="booking"]');
-bf.addEventListener("submit", async e=>{
-  e.preventDefault();
-  const msg = bf.querySelector(".msg"), btn = bf.querySelector('button[type="submit"]');
-  const d = Object.fromEntries(new FormData(bf));
-  if(!d.name.trim()){ setMsg(msg,"Напишите, как к вам обращаться.",false); bf.name.focus(); return; }
-  if(d.contact.trim().length<3){ setMsg(msg,"Оставьте телефон или ник в Telegram.",false); bf.contact.focus(); return; }
-  if(!bf.consent.checked){ setMsg(msg,"Нужно согласие на обработку данных, иначе мы не сможем связаться.",false); return; }
-  btn.disabled = true;
-  try{
-    const s = await insert("bookings",{
-      name:d.name.trim(), contact:d.contact.trim(), psychologist:d.psychologist||null, topic:d.topic||null,
-      preferred_time:d.preferred_time.trim()||null, message:d.message.trim()||null, consent:true
-    });
-    if(s===201){ setMsg(msg,`Спасибо, ${d.name.trim()}! Заявка принята — координатор свяжется в течение рабочего дня.`,true); bf.reset(); }
-    else setMsg(msg,"Не получилось отправить заявку. Попробуйте ещё раз чуть позже.",false);
-  }catch{ setMsg(msg,"Нет соединения. Проверьте интернет и попробуйте снова.",false); }
-  btn.disabled = false;
-});
+renderGrid();
+$("#arts").innerHTML = ARTICLES.slice(0,3).map(articleCard).join("");
 </script>
 </body>
 </html>

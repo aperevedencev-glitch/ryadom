@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Аналитика: калькулятор дохода психолога — Рядом</title>
+<meta name="description" content="Калькулятор дохода частнопрактикующего психолога: цена сессии, нагрузка, отмены, налоги и комиссии — сколько остаётся на руки.">
+<meta name="theme-color" content="#F3F4F0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="analytics">
+<div id="site-header"></div>
+<main>
+  <div class="wrap page-head">
+    <span class="eyebrow">Аналитика «Рядом»</span>
+    <h1 class="page" style="margin-top:10px">Психология в цифрах</h1>
+    <p class="lead">Сколько на самом деле зарабатывает психолог в частной практике и на платформе. Подставьте свои цифры — калькулятор учтёт отмены, отпуск, налоги, комиссии и расходы на профессию.</p>
+  </div>
+
+  <div class="wrap calc">
+    <div class="panel" id="inputs">
+      <h2 style="font-size:26px;margin-bottom:22px">Ваши условия</h2>
+      <div class="range"><div class="lbl"><span>Цена сессии</span><b id="v-price"></b></div><input type="range" id="price" min="1500" max="12000" step="250" value="4000"></div>
+      <div class="range"><div class="lbl"><span>Сессий в неделю</span><b id="v-load"></b></div><input type="range" id="load" min="1" max="35" step="1" value="15"></div>
+      <div class="range"><div class="lbl"><span>Рабочих недель в году</span><b id="v-weeks"></b></div><input type="range" id="weeks" min="30" max="50" step="1" value="44"></div>
+      <div class="range"><div class="lbl"><span>Отмены и пропуски без оплаты</span><b id="v-cancel"></b></div><input type="range" id="cancel" min="0" max="30" step="1" value="10"></div>
+      <div class="range">
+        <div class="lbl"><span>Комиссия платформы и эквайринга</span><b id="v-fee"></b></div>
+        <input type="range" id="fee" min="0" max="50" step="1" value="3">
+        <div class="fchips" style="margin-top:6px"><button class="chip sm" type="button" data-fee="3">Своя практика</button><button class="chip sm" type="button" data-fee="35">Платформа</button></div>
+      </div>
+      <label style="margin-bottom:20px">Налоговый режим
+        <select id="tax">
+          <option value="0.04">Самозанятый, клиенты — физлица (4%)</option>
+          <option value="0.06">Самозанятый, оплата от компаний и платформ (6%)</option>
+          <option value="0.06">ИП на УСН «доходы» (6%, без учёта взносов)</option>
+        </select>
+      </label>
+      <div class="range"><div class="lbl"><span>Расходы на профессию в месяц</span><b id="v-costs"></b></div><input type="range" id="costs" min="0" max="60000" step="1000" value="15000">
+        <span class="muted" style="font-size:13px">Супервизия, личная терапия, обучение, сервисы, реклама</span></div>
+    </div>
+
+    <div class="panel" style="position:sticky;top:84px">
+      <span class="eyebrow">Остаётся на руки в месяц</span>
+      <div class="big" id="net"></div>
+      <p class="muted" id="netNote" style="font-size:15px"></p>
+      <div class="kpis">
+        <div class="kpi"><span>Выручка в месяц</span><b id="k-rev"></b></div>
+        <div class="kpi"><span>Оплаченных сессий в месяц</span><b id="k-sess"></b></div>
+        <div class="kpi"><span>На руки с одной сессии</span><b id="k-per"></b></div>
+        <div class="kpi"><span>За час работы с учётом подготовки</span><b id="k-hour"></b></div>
+      </div>
+      <h3 style="font-size:19px;margin-top:28px">Куда уходят деньги клиента</h3>
+      <div class="bar" id="bar" role="img"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>Как пользоваться цифрами</h2>
+      <div class="feat">
+        <div class="item"><h3>Считайте год, а не месяц</h3><p class="muted">Отпуск, праздники и болезни — ваши и клиентов — съедают заметную часть недель. Поэтому доход считается по рабочим неделям в году.</p></div>
+        <div class="item"><h3>Час — это не 50 минут</h3><p class="muted">В «час работы» мы закладываем ещё 25 минут на подготовку, записи и переписку. Это время тоже ваше, хоть его и не оплачивают.</p></div>
+        <div class="item"><h3>Расходы — часть профессии</h3><p class="muted">Супервизия и личная терапия — не роскошь, а условие этичной практики. Заложите их в цену, а не в «останется — потрачу».</p></div>
+      </div>
+      <p class="muted" style="font-size:14px;margin-top:20px">Калькулятор даёт оценку и не является налоговой консультацией. Взносы ИП, лимиты режимов и ставки уточняйте на сайте ФНС.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sub">
+        <div><span class="eyebrow" style="color:#9FC0B2">Скоро</span><h2 style="margin-top:10px">Исследование рынка психологии</h2><p style="margin-top:14px">Готовим обзор с открытыми данными: цены сессий, условия платформ, нагрузка специалистов. Оставьте почту — пришлём, как только выйдет.</p></div>
+        <div>
+          <form class="inline-form" data-form="subscribe" data-source="research" novalidate>
+            <label class="sr" for="rs">Email</label>
+            <input id="rs" type="email" name="email" placeholder="ваш@email.ru" autocomplete="email" required>
+            <button class="btn light" type="submit">Получить исследование</button>
+          </form>
+          <p class="msg" aria-live="polite" style="margin-top:10px"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="/common.js"></script>
+<script>
+const ids = ["price","load","weeks","cancel","fee","tax","costs"];
+const el = Object.fromEntries(ids.map(i=>[i,$("#"+i)]));
+const COLORS = {net:"#9FCDBB", tax:"#E9A27A", fee:"#F3D39B", costs:"#D5DCD8"};
+function calc(){
+  const price=+el.price.value, load=+el.load.value, weeks=+el.weeks.value, cancel=+el.cancel.value/100, fee=+el.fee.value/100, tax=+el.tax.value, costs=+el.costs.value;
+  const sessMonth = load*(1-cancel)*weeks/12;
+  const rev = sessMonth*price;
+  const feeSum = rev*fee;
+  const taxSum = rev*tax;             // налог считается с поступлений клиента
+  const net = rev - feeSum - taxSum - costs;
+  const hoursMonth = load*weeks/12*(75/60);
+  $("#v-price").textContent=rub(price); $("#v-load").textContent=load; $("#v-weeks").textContent=weeks;
+  $("#v-cancel").textContent=Math.round(cancel*100)+"%"; $("#v-fee").textContent=Math.round(fee*100)+"%"; $("#v-costs").textContent=rub(costs);
+  $("#net").textContent = rub(Math.round(net/100)*100);
+  $("#netNote").textContent = net<0 ? "Расходы больше дохода — стоит пересмотреть цену или нагрузку." : `Около ${rub(Math.round(net*12/1000)*1000)} в год после налогов, комиссий и расходов.`;
+  $("#k-rev").textContent = rub(Math.round(rev/100)*100);
+  $("#k-sess").textContent = Math.round(sessMonth);
+  $("#k-per").textContent = rub(Math.round(sessMonth? net/sessMonth : 0));
+  $("#k-hour").textContent = rub(Math.round(hoursMonth? net/hoursMonth : 0));
+  const parts = [["net","На руки",Math.max(net,0)],["tax","Налог",taxSum],["fee","Комиссии",feeSum],["costs","Расходы на профессию",Math.min(costs,rev)]];
+  const total = parts.reduce((s,p)=>s+p[2],0) || 1;
+  $("#bar").innerHTML = parts.map(([k,,v])=>{const pct=v/total*100; return `<div style="width:${pct}%;background:${COLORS[k]}">${pct>=9?Math.round(pct)+"%":""}</div>`}).join("");
+  $("#bar").setAttribute("aria-label", parts.map(([,t,v])=>`${t} ${Math.round(v/total*100)}%`).join(", "));
+  $("#legend").innerHTML = parts.map(([k,t,v])=>`<span><i style="background:${COLORS[k]}"></i>${t} · ${rub(Math.round(v/100)*100)}</span>`).join("");
+  $$("[data-fee]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.fee===el.fee.value));
+}
+ids.forEach(i=>el[i].addEventListener("input",calc));
+$$("[data-fee]").forEach(b=>b.addEventListener("click",()=>{ el.fee.value=b.dataset.fee; calc(); }));
+calc();
+</script>
+</body>
+</html>

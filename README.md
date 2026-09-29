@@ -1,14 +1,24 @@
 # Рядом — психологи онлайн
 
-Статический одностраничный сайт (index.html) + vercel.json.
+Статический сайт без сборки, готов к деплою на Vercel (Framework: Other).
 
-Формы записи и подписки пишут в Supabase (проект wuvadreohiphwevprwmk):
-- таблица `bookings` — заявки на запись;
-- таблица `subscribers` — email подписчиков (уникальные).
+## Страницы
+| Адрес | Файл | Что там |
+|---|---|---|
+| `/` | index.html | Главная: темы, психологи, журнал, запись, FAQ, подписка |
+| `/psychologists` | psychologists.html | Каталог с фильтрами и сортировкой, запись на конкретное время |
+| `/psychologist?id=…` | psychologist.html | Анкета психолога |
+| `/ai` | ai.html | ИИ-собеседник (демо) + лист ожидания |
+| `/blog`, `/article?slug=…` | blog.html, article.html | Журнал с поиском и 9 статьями |
+| `/analytics` | analytics.html | Калькулятор дохода психолога + подписка на исследование |
+| `/join` | join.html | Отбор и заявка психолога |
 
-Публичный ключ в коде даёт только право INSERT (RLS), читать данные через сайт нельзя.
-Заявки смотреть: Supabase → Table Editor.
+Общее: `styles.css`, `common.js` (данные психологов, шапка/подвал, формы), `articles.js` (статьи).
 
-## Деплой на Vercel
-    npx vercel --prod
-или импорт репозитория на vercel.com/new (Framework: Other, без сборки).
+## Формы → Supabase (проект wuvadreohiphwevprwmk)
+- `bookings` — записи на встречу (в т.ч. выбранный слот);
+- `subscribers` — email + `source`: `letters` (письма), `ai_waitlist` (ИИ), `research` (исследование);
+- `psychologist_applications` — заявки психологов.
+
+Публичный ключ в коде даёт только INSERT (RLS), читать данные с сайта нельзя.
+Смотреть заявки: Supabase → Table Editor.

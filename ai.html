@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ИИ-собеседник: демо-режим — Рядом</title>
+<meta name="description" content="Голосовой ИИ-собеседник «Рядом» для поддержки между встречами с психологом. Сейчас работает в демо-режиме.">
+<meta name="theme-color" content="#F3F4F0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="ai">
+<div id="site-header"></div>
+<main>
+  <div class="wrap page-head">
+    <h1 class="page">ИИ-собеседник: демо-режим</h1>
+    <p class="lead">Здесь появится голосовой собеседник, с которым можно поговорить между встречами с психологом. Живой режим пока выключен — начать настоящий разговор нельзя.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="ai-hero">
+      <div class="orb" aria-hidden="true">
+        <button class="mic" type="button" disabled tabindex="-1">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#234035" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <span class="status" style="align-self:flex-start">Демо-режим</span>
+        <h2>Живой разговор пока недоступен</h2>
+        <p class="muted">Микрофон не включается, сообщения не отправляются. Оставьте почту — напишем, как только собеседник заработает.</p>
+        <form class="inline-form" data-form="subscribe" data-source="ai_waitlist" novalidate>
+          <label class="sr" for="wl">Email</label>
+          <input id="wl" type="email" name="email" placeholder="ваш@email.ru" autocomplete="email" required>
+          <button class="btn" type="submit">Сообщить о запуске</button>
+        </form>
+        <p class="msg" aria-live="polite"></p>
+        <ul class="perks" style="margin-top:0">
+          <li>Не нужно записываться и заполнять анкеты</li>
+          <li>Честно говорит, что он ИИ, и подсказывает, когда лучше к человеку</li>
+        </ul>
+        <p style="font-size:14px;color:var(--warm-ink)">В кризисной ситуации звоните 112. ИИ-собеседник не заменяет экстренную помощь.</p>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>Что он будет уметь</h2>
+      <div class="feat">
+        <div class="item"><h3>Выслушать</h3><p class="muted">Когда не с кем поговорить или не хочется нагружать близких.</p></div>
+        <div class="item"><h3>Помочь успокоиться</h3><p class="muted">Дыхание и заземление вместе с голосом, если накрыла тревога.</p></div>
+        <div class="item"><h3>Разложить мысли</h3><p class="muted">После ссоры или тяжёлого дня — разобраться, что произошло и что вы чувствуете.</p></div>
+        <div class="item"><h3>Отрепетировать разговор</h3><p class="muted">Проговорить, что хочется сказать, и продумать, как ответить, если разговор пойдёт не так.</p></div>
+        <div class="item"><h3>Сформулировать запрос</h3><p class="muted">Понять, с чем идти к психологу, — чтобы первая встреча прошла спокойнее.</p></div>
+        <div class="item"><h3>Подсказать специалиста</h3><p class="muted">Покажет психологов «Рядом», которые работают с вашей темой.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap split">
+      <div class="item" style="padding:32px">
+        <h2 style="font-size:30px">Чего он не делает</h2>
+        <ul class="nolist">
+          <li>Не ставит диагнозы и не назначает лечение.</li>
+          <li>Не заменяет терапию при депрессии, травме, зависимостях и расстройствах пищевого поведения.</li>
+          <li>Не оказывает экстренную помощь: в кризисе даст номера служб и попросит обратиться к людям.</li>
+          <li>Не притворяется человеком.</li>
+        </ul>
+      </div>
+      <div class="tile warm" style="min-height:0">
+        <h2 style="font-size:30px">Когда лучше к психологу</h2>
+        <p>Если трудности тянутся месяцами, мешают работать и общаться или связаны с травмой — лучше работать с живым специалистом. ИИ поможет продержаться до первой встречи.</p>
+        <div class="faces" id="faces"></div>
+        <div><a class="btn" href="/psychologists">Подобрать психолога</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="/common.js"></script>
+<script>$("#faces").innerHTML = PSY.slice(4,8).map(p=>avatar(p)).join("") + `<span class="more">+${PSY.length-4}</span>`;</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Журнал — Рядом</title>
+<meta name="description" content="Журнал «Рядом»: как устроена психотерапия, как выбрать специалиста, и заметки для психологов о профессии.">
+<meta name="theme-color" content="#F3F4F0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="blog">
+<div id="site-header"></div>
+<main>
+  <div class="wrap page-head">
+    <span class="eyebrow">Журнал «Рядом»</span>
+    <h1 class="page" style="margin-top:10px">Спокойно о психотерапии</h1>
+    <p class="lead">Для тех, кто ищет помощь, — как выбрать специалиста и чего ждать от встреч. Для психологов — о цене, нагрузке и устойчивой практике.</p>
+  </div>
+  <div class="wrap">
+    <div class="results-bar">
+      <div class="fchips" id="kinds"></div>
+      <div style="flex:1 1 260px;max-width:360px"><label class="sr" for="q">Поиск по статьям</label><input id="q" type="search" placeholder="Поиск по статьям"></div>
+    </div>
+    <p class="muted" id="count" style="font-size:14px;margin-bottom:16px" aria-live="polite"></p>
+    <div class="arts" id="arts"></div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="sub">
+        <div><h2>Новые статьи и практики — по воскресеньям</h2><p style="margin-top:14px">Письма «Рядом»: одна практика на неделю и лучшие тексты журнала.</p></div>
+        <div>
+          <form class="inline-form" data-form="subscribe" data-source="letters" novalidate>
+            <label class="sr" for="bs">Email</label>
+            <input id="bs" type="email" name="email" placeholder="ваш@email.ru" autocomplete="email" required>
+            <button class="btn light" type="submit">Подписаться</button>
+          </form>
+          <p class="msg" aria-live="polite" style="margin-top:10px"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="/common.js"></script>
+<script src="/articles.js"></script>
+<script>
+const KINDS = ["Все","Клиентам","Психологам"];
+let kind = new URLSearchParams(location.search).get("kind") || "Все";
+$("#kinds").innerHTML = KINDS.map(k=>`<button class="chip sm" type="button" aria-pressed="${k===kind}">${k}</button>`).join("");
+$("#kinds").addEventListener("click",e=>{ const b=e.target.closest(".chip"); if(!b) return; kind=b.textContent; $$("#kinds .chip").forEach(c=>c.setAttribute("aria-pressed",c===b)); render(); });
+$("#q").addEventListener("input",render);
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  const list = ARTICLES.filter(a=>(kind==="Все"||a.kind===kind) && (!q || (a.title+" "+a.lead+" "+a.body).toLowerCase().includes(q)));
+  $("#count").textContent = `Материалов: ${list.length}`;
+  $("#arts").innerHTML = list.map(articleCard).join("") || `<div class="empty">Ничего не нашлось. Попробуйте другой запрос.</div>`;
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Журнал — Рядом</title>
+<meta name="theme-color" content="#F3F4F0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="blog">
+<div id="site-header"></div>
+<main class="wrap" style="padding-top:40px" id="root"></main>
+<div id="site-footer"></div>
+<script src="/common.js"></script>
+<script src="/articles.js"></script>
+<script>
+const slug = new URLSearchParams(location.search).get("slug");
+const i = ARTICLES.findIndex(a=>a.slug===slug), a = ARTICLES[i];
+if(!a){
+  $("#root").innerHTML = `<div class="empty"><h2>Статья не найдена</h2><p class="muted" style="margin:12px 0 20px">Возможно, ссылка устарела.</p><a class="btn" href="/blog">Все статьи</a></div>`;
+} else {
+  document.title = `${a.title} — Рядом`;
+  const more = ARTICLES.filter(x=>x!==a && x.kind===a.kind).slice(0,3);
+  const cta = a.kind==="Клиентам"
+    ? `<div class="booking" style="margin-top:40px;grid-template-columns:1fr"><div><h2 style="font-size:30px">Поговорить со специалистом</h2><p class="muted" style="margin:10px 0 18px">Подберите психолога по теме и удобному времени или оставьте заявку — поможем выбрать.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="/psychologists">Выбрать психолога</a><button class="btn ghost" type="button" data-open-booking>Оставить заявку</button></div></div></div>`
+    : `<div class="booking" style="margin-top:40px;grid-template-columns:1fr"><div><h2 style="font-size:30px">Ищем специалистов в команду</h2><p class="muted" style="margin:10px 0 18px">Если у вас профильное образование и практика от трёх лет — расскажите о себе.</p><a class="btn" href="/join">Оставить заявку</a></div></div>`;
+  $("#root").innerHTML = `
+  <article class="article">
+    <p class="crumbs"><a href="/blog">Журнал</a> / <a href="/blog?kind=${encodeURIComponent(a.kind)}">${a.kind}</a></p>
+    <span class="muted" style="font-size:14px">${a.minutes} мин чтения</span>
+    <h1 class="page" style="margin:10px 0 18px;font-size:clamp(32px,4.4vw,52px)">${a.title}</h1>
+    <p class="lead" style="margin-bottom:32px">${a.lead}</p>
+    <div class="prose">${a.body}</div>
+    ${cta}
+  </article>
+  ${more.length?`<section style="padding-bottom:0"><h2 style="margin-bottom:24px">Читать дальше</h2><div class="arts">${more.map(articleCard).join("")}</div></section>`:""}`;
+}
+</script>
+</body>
+</html>

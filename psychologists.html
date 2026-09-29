@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Психологи — Рядом</title>
+<meta name="description" content="Каталог психологов «Рядом»: фильтры по запросу, подходу, цене и свободному времени. Запись на видеовстречу в пару кликов.">
+<meta name="theme-color" content="#F3F4F0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="psychologists">
+<div id="site-header"></div>
+<main>
+  <div class="wrap page-head">
+    <h1 class="page">Психологи</h1>
+    <p class="lead" id="lead"></p>
+  </div>
+  <div class="wrap catalog">
+    <aside class="filters" id="filters" aria-label="Фильтры">
+      <button class="btn ghost ftoggle" type="button" id="ftoggle" aria-expanded="false">Фильтры</button>
+      <div class="fbody" id="fbody"></div>
+    </aside>
+    <div>
+      <div class="results-bar">
+        <b id="count" aria-live="polite"></b>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn ghost sm" type="button" id="reset" hidden>Сбросить фильтры</button>
+          <label class="sr" for="sort">Порядок</label>
+          <select id="sort">
+            <option value="match">Сначала подходящие</option>
+            <option value="soon">Сначала свободные раньше</option>
+            <option value="exp">Сначала опытные</option>
+            <option value="cheap">Сначала дешевле</option>
+            <option value="expensive">Сначала дороже</option>
+          </select>
+        </div>
+      </div>
+      <div class="plist" id="plist"></div>
+    </div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="/common.js"></script>
+<script>
+const GROUPS = [
+  {key:"topic", title:"С чем нужна помощь", multi:true, opts:TOPICS.map(t=>[t,t])},
+  {key:"aud", title:"Кому нужна консультация", multi:true, opts:Object.entries(AUDIENCE)},
+  {key:"when", title:"Когда", multi:false, opts:[["0","Есть время сегодня"],["2","В ближайшие 3 дня"]]},
+  {key:"price", title:"Стоимость встречи", multi:false, opts:[["3000","до 3 000 ₽"],["4500","до 4 500 ₽"]]},
+  {key:"g", title:"Пол психолога", multi:false, opts:[["f","Женщина"],["m","Мужчина"]]},
+  {key:"exp", title:"Опыт", multi:false, opts:[["5","От 5 лет"],["10","От 10 лет"]]},
+  {key:"format", title:"Формат", multi:true, opts:Object.entries(FORMATS)},
+  {key:"approach", title:"Подход", multi:true, opts:APPROACHES.map(a=>[a,a])}
+];
+const state = Object.fromEntries(GROUPS.map(g=>[g.key,new Set()]));
+const params = new URLSearchParams(location.search);
+GROUPS.forEach(g=>{ const v=params.get(g.key); if(v) v.split(",").forEach(x=>state[g.key].add(x)); });
+
+$("#lead").textContent = `${PSY.length} специалистов и ИИ-собеседник. Время в анкетах показано по вашему часовому поясу.`;
+$("#fbody").innerHTML = GROUPS.map(g=>`<h4>${g.title}</h4><div class="fchips" data-key="${g.key}">${g.opts.map(([v,t])=>`<button class="chip sm" type="button" data-v="${esc(v)}" aria-pressed="${state[g.key].has(v)}">${t}</button>`).join("")}</div>`).join("");
+
+$("#fbody").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  const key=b.parentElement.dataset.key, g=GROUPS.find(x=>x.key===key), v=b.dataset.v, set=state[key];
+  if(set.has(v)) set.delete(v); else { if(!g.multi){ set.clear(); $$(".chip",b.parentElement).forEach(c=>c.setAttribute("aria-pressed","false")); } set.add(v); }
+  b.setAttribute("aria-pressed", set.has(v));
+  render(); syncUrl();
+});
+$("#ftoggle").addEventListener("click",()=>{ const f=$("#filters"); f.classList.toggle("open"); $("#ftoggle").setAttribute("aria-expanded",f.classList.contains("open")); });
+$("#reset").addEventListener("click",()=>{ Object.values(state).forEach(s=>s.clear()); $$("#fbody .chip").forEach(c=>c.setAttribute("aria-pressed","false")); render(); syncUrl(); });
+$("#sort").addEventListener("change",render);
+function syncUrl(){
+  const p=new URLSearchParams(); Object.entries(state).forEach(([k,s])=>{ if(s.size) p.set(k,[...s].join(",")); });
+  history.replaceState(null,"",location.pathname+(p.toString()?"?"+p:""));
+}
+const active = () => Object.values(state).some(s=>s.size);
+function matches(p){
+  const s=state;
+  if(s.topic.size && ![...s.topic].some(t=>p.topics.includes(t))) return false;
+  if(s.aud.size && ![...s.aud].some(a=>p.aud.includes(a))) return false;
+  if(s.when.size && !(p.slots[0][0] <= +[...s.when][0])) return false;
+  if(s.price.size && p.price > +[...s.price][0]) return false;
+  if(s.g.size && !s.g.has(p.g)) return false;
+  if(s.exp.size && p.exp < +[...s.exp][0]) return false;
+  if(s.format.size && ![...s.format].some(f=>p.formats.includes(f))) return false;
+  if(s.approach.size && ![...s.approach].some(a=>p.approaches.includes(a))) return false;
+  return true;
+}
+const score = p => [...state.topic].filter(t=>p.topics.includes(t)).length*10 + [...state.approach].filter(a=>p.approaches.includes(a)).length*5;
+const SORTS = {
+  match:(a,b)=>score(b)-score(a) || a.slots[0][0]-b.slots[0][0],
+  soon:(a,b)=>a.slots[0][0]-b.slots[0][0] || a.slots[0][1][0].localeCompare(b.slots[0][1][0]),
+  exp:(a,b)=>b.exp-a.exp, cheap:(a,b)=>a.price-b.price, expensive:(a,b)=>b.price-a.price
+};
+function pcard(p){
+  const topic = [...state.topic].find(t=>p.topics.includes(t)) || "";
+  return `<article class="pcard">
+    <div>
+      <div class="who">${avatar(p)}<div><h3><a href="/psychologist?id=${p.id}">${p.name}</a></h3><small>${p.role}</small></div></div>
+      <div class="facts"><span>Опыт ${p.exp} ${yearsWord(p.exp)}</span><span>${p.audText}</span><span>${formatText(p)}</span></div>
+      <p class="quote">${p.quote}</p>
+      <div class="tags">${p.topics.map(t=>`<span${state.topic.has(t)?' style="background:var(--mint)"':""}>${t}</span>`).join("")}</div>
+    </div>
+    <div class="slots" style="display:flex;flex-direction:column;gap:14px">
+      <div class="price"><b>${rub(p.price)}</b> <span class="muted">за 50 минут</span></div>
+      ${p.slots.map(([d,times])=>`<div><div class="day">${dayLabel(d)}</div><div class="times">${times.map(t=>`<button class="slot" type="button" data-open-booking data-psy="${p.name}" data-topic="${esc(topic)}" data-slot="${dayLabel(d)}, ${t}">${t}</button>`).join("")}</div></div>`).join("")}
+      <div class="actions"><button class="btn sm" type="button" data-open-booking data-psy="${p.name}" data-topic="${esc(topic)}">Записаться</button><a class="btn ghost sm" href="/psychologist?id=${p.id}">Анкета</a></div>
+    </div>
+  </article>`;
+}
+const AI_CARD = `<article class="ai-card"><span class="status" style="align-self:flex-start">Демо-режим · живой разговор скоро</span><h3>ИИ-собеседник</h3><p class="muted">Можно выговориться, успокоиться и понять, с чего начать. Если нужно — подскажет подходящего психолога.</p><div><a class="btn ghost sm" href="/ai">Об ИИ-собеседнике</a></div></article>`;
+function render(){
+  const list = PSY.filter(matches).sort(SORTS[$("#sort").value]);
+  const n=list.length, a=n%10, b=n%100, w = (a>=1&&a<=4&&(b<11||b>14)) ? "психолога" : "психологов";
+  $("#count").textContent = n ? `Нашли ${n} ${w}` : "Никого не нашли";
+  $("#reset").hidden = !active();
+  $("#plist").innerHTML = (active()? "" : AI_CARD) + (list.map(pcard).join("") ||
+    `<div class="empty">Под такие фильтры никто не подошёл. Попробуйте убрать часть условий — или <a href="#" data-open-booking>оставьте заявку</a>, и координатор подберёт специалиста.</div>`);
+}
+render();
+</script>
+</body>
+</html>

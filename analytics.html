@@ -3,83 +3,243 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Аналитика: калькулятор дохода психолога — Рядом</title>
-<meta name="description" content="Калькулятор дохода частнопрактикующего психолога: цена сессии, нагрузка, отмены, налоги и комиссии — сколько остаётся на руки.">
+<title>Рынок психологии в цифрах — Рядом</title>
+<meta name="description" content="Рынок психологических услуг в России: объём, платформы, цены сессий, спрос, доход психолога, вакансии и регулирование. Калькулятор дохода.">
 <meta name="theme-color" content="#F3F4F0">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
+<style>
+.an-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.kgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.kgrid{grid-template-columns:1fr}}
+.ktile{background:#fff;border-radius:22px;padding:22px}
+.ktile b{display:block;font:400 34px/1.1 var(--serif)}
+.ktile p{margin-top:8px}
+.ktile small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+.chart{background:#fff;border-radius:24px;padding:26px}
+.chart h3{font-size:21px}
+.chart .csub{color:var(--muted);font-size:14px;margin:4px 0 18px}
+.chart .src{font-size:12.5px;color:var(--muted);margin-top:14px}
+.chart .src a{color:var(--muted)}
+.chart .cnote{font-size:14px;color:var(--muted);margin-top:14px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.charts{grid-template-columns:1fr}}
+.sec-title{margin:0 0 8px}
+.sec-lead{color:var(--muted);max-width:760px;margin-bottom:26px}
+/* horizontal bars */
+.hb{display:grid;grid-template-columns:minmax(120px,38%) 1fr auto;gap:8px 12px;align-items:center;font-size:14px}
+.hb .lbl{color:var(--ink)}
+.hb .lbl small{display:block;color:var(--muted);font-size:12px}
+.hb .track{height:18px;position:relative}
+.hb .fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#6FAE97}
+.hb .band{position:absolute;top:6px;height:6px;border-radius:3px;background:#B9DCCD}
+.hb .dot{position:absolute;top:1px;width:16px;height:16px;border-radius:50%;background:#2F6E57;border:2px solid #fff;transform:translateX(-50%)}
+.hb .val{font-weight:600;white-space:nowrap;text-align:right}
+/* diverging */
+.dv{display:grid;grid-template-columns:minmax(120px,40%) 1fr 56px;gap:8px 12px;align-items:center;font-size:14px}
+.dv .track{height:18px;position:relative}
+.dv .track::before{content:"";position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--line)}
+.dv .fill{position:absolute;top:0;bottom:0}
+.dv .pos{left:50%;background:#6FAE97;border-radius:0 4px 4px 0}
+.dv .neg{right:50%;background:#D99A73;border-radius:4px 0 0 4px}
+/* vertical bars */
+.vb{display:flex;align-items:flex-end;gap:10px;height:200px;padding-top:24px;border-bottom:1px solid var(--line)}
+.vb .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.vb .bar{width:100%;max-width:56px;background:#6FAE97;border-radius:4px 4px 0 0}
+.vb .col:last-child .bar{background:#2F6E57}
+.vb .v{font-size:13px;font-weight:600;margin-bottom:4px}
+.vx{display:flex;gap:10px}
+.vx span{flex:1;text-align:center;font-size:13px;color:var(--muted);padding-top:6px}
+[data-tip]{cursor:default}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:#fff;font-size:13px;padding:7px 10px;border-radius:8px;max-width:260px;opacity:0;transition:opacity .1s}
+table.dt{width:100%;border-collapse:collapse;font-size:14px}
+table.dt th,table.dt td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.dt th{font-weight:600;color:var(--muted);font-size:13px;white-space:nowrap}
+table.dt th button{all:unset;cursor:pointer}
+table.dt th button:hover{color:var(--ink)}
+table.dt td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tscroll{overflow-x:auto}
+details.tbl{background:transparent;padding:0;margin-top:12px}
+details.tbl summary{font-size:13px;padding:6px 0;color:var(--muted)}
+details.tbl summary::after{font-size:16px}
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:10px;border-left:2px solid var(--line);padding-left:22px}
+.timeline div{position:relative;padding:0 0 18px}
+.timeline div::before{content:"";position:absolute;left:-29px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.timeline b{display:block;font-size:14px}
+.timeline p{color:var(--muted);font-size:15px}
+.seg{display:inline-flex;background:var(--bg);border-radius:999px;padding:4px;gap:4px}
+.seg button{border:0;background:none;border-radius:999px;padding:8px 14px;font:14px var(--sans);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08);font-weight:600}
+.charts>*,.calc>*,.split>*{min-width:0}
+#costs-t td.n,#c-ai td.n{white-space:normal}
+.srclist{columns:2;column-gap:32px;font-size:14px;padding-left:18px}
+.srclist li{margin-bottom:6px;break-inside:avoid}
+@media(max-width:760px){.srclist{columns:1}}
+</style>
 </head>
 <body data-page="analytics">
 <div id="site-header"></div>
 <main>
   <div class="wrap page-head">
-    <span class="eyebrow">Аналитика «Рядом»</span>
-    <h1 class="page" style="margin-top:10px">Психология в цифрах</h1>
-    <p class="lead">Сколько на самом деле зарабатывает психолог в частной практике и на платформе. Подставьте свои цифры — калькулятор учтёт отмены, отпуск, налоги, комиссии и расходы на профессию.</p>
+    <span class="eyebrow">Исследование · срез 29 сентября 2026</span>
+    <h1 class="page" style="margin-top:10px">Рынок психологии в цифрах</h1>
+    <p class="lead">Сколько россияне платят психологам, сколько из этого остаётся специалисту, как устроены платформы и что показывают вакансии. Под каждым графиком — первоисточник.</p>
+    <nav class="an-nav" aria-label="Разделы">
+      <a class="chip sm" href="#market">Рынок и деньги</a><a class="chip sm" href="#platforms">Платформы</a><a class="chip sm" href="#prices">Цены</a><a class="chip sm" href="#demand">Спрос</a><a class="chip sm" href="#income">Доход психолога</a><a class="chip sm" href="#jobs">Вакансии</a><a class="chip sm" href="#law">Регулирование</a><a class="chip sm" href="#sources">Источники</a>
+    </nav>
   </div>
 
-  <div class="wrap calc">
-    <div class="panel" id="inputs">
-      <h2 style="font-size:26px;margin-bottom:22px">Ваши условия</h2>
-      <div class="range"><div class="lbl"><span>Цена сессии</span><b id="v-price"></b></div><input type="range" id="price" min="1500" max="12000" step="250" value="4000"></div>
-      <div class="range"><div class="lbl"><span>Сессий в неделю</span><b id="v-load"></b></div><input type="range" id="load" min="1" max="35" step="1" value="15"></div>
-      <div class="range"><div class="lbl"><span>Рабочих недель в году</span><b id="v-weeks"></b></div><input type="range" id="weeks" min="30" max="50" step="1" value="44"></div>
-      <div class="range"><div class="lbl"><span>Отмены и пропуски без оплаты</span><b id="v-cancel"></b></div><input type="range" id="cancel" min="0" max="30" step="1" value="10"></div>
-      <div class="range">
-        <div class="lbl"><span>Комиссия платформы и эквайринга</span><b id="v-fee"></b></div>
-        <input type="range" id="fee" min="0" max="50" step="1" value="3">
-        <div class="fchips" style="margin-top:6px"><button class="chip sm" type="button" data-fee="3">Своя практика</button><button class="chip sm" type="button" data-fee="35">Платформа</button></div>
-      </div>
-      <label style="margin-bottom:20px">Налоговый режим
-        <select id="tax">
-          <option value="0.04">Самозанятый, клиенты — физлица (4%)</option>
-          <option value="0.06">Самозанятый, оплата от компаний и платформ (6%)</option>
-          <option value="0.06">ИП на УСН «доходы» (6%, без учёта взносов)</option>
-        </select>
-      </label>
-      <div class="range"><div class="lbl"><span>Расходы на профессию в месяц</span><b id="v-costs"></b></div><input type="range" id="costs" min="0" max="60000" step="1000" value="15000">
-        <span class="muted" style="font-size:13px">Супервизия, личная терапия, обучение, сервисы, реклама</span></div>
-    </div>
+  <div class="wrap"><div class="kgrid" id="kpis"></div></div>
 
-    <div class="panel" style="position:sticky;top:84px">
-      <span class="eyebrow">Остаётся на руки в месяц</span>
-      <div class="big" id="net"></div>
-      <p class="muted" id="netNote" style="font-size:15px"></p>
-      <div class="kpis">
-        <div class="kpi"><span>Выручка в месяц</span><b id="k-rev"></b></div>
-        <div class="kpi"><span>Оплаченных сессий в месяц</span><b id="k-sess"></b></div>
-        <div class="kpi"><span>На руки с одной сессии</span><b id="k-per"></b></div>
-        <div class="kpi"><span>За час работы с учётом подготовки</span><b id="k-hour"></b></div>
-      </div>
-      <h3 style="font-size:19px;margin-top:28px">Куда уходят деньги клиента</h3>
-      <div class="bar" id="bar" role="img"></div>
-      <div class="legend" id="legend"></div>
-    </div>
-  </div>
-
-  <section>
+  <section id="market">
     <div class="wrap">
-      <h2>Как пользоваться цифрами</h2>
-      <div class="feat">
-        <div class="item"><h3>Считайте год, а не месяц</h3><p class="muted">Отпуск, праздники и болезни — ваши и клиентов — съедают заметную часть недель. Поэтому доход считается по рабочим неделям в году.</p></div>
-        <div class="item"><h3>Час — это не 50 минут</h3><p class="muted">В «час работы» мы закладываем ещё 25 минут на подготовку, записи и переписку. Это время тоже ваше, хоть его и не оплачивают.</p></div>
-        <div class="item"><h3>Расходы — часть профессии</h3><p class="muted">Супервизия и личная терапия — не роскошь, а условие этичной практики. Заложите их в цену, а не в «останется — потрачу».</p></div>
+      <h2 class="sec-title">Рынок и деньги</h2>
+      <p class="sec-lead">Онлайн — около 12 млрд ₽ в год, а выручка крупнейших платформ перестала расти.</p>
+      <div class="charts">
+        <div class="chart" id="c-market"></div>
+        <div class="chart" id="c-top5"></div>
+        <div class="chart" id="c-platrev" style="grid-column:1/-1"></div>
       </div>
-      <p class="muted" style="font-size:14px;margin-top:20px">Калькулятор даёт оценку и не является налоговой консультацией. Взносы ИП, лимиты режимов и ставки уточняйте на сайте ФНС.</p>
+    </div>
+  </section>
+
+  <section id="platforms" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Платформы</h2>
+      <p class="sec-lead">Сервисы подбора забирают 25–50% цены сессии, зато приводят клиентов. В каталогах комиссии почти нет, но клиентов психолог ищет сам.</p>
+      <div class="chart" style="margin-bottom:18px">
+        <h3>Сравнение платформ</h3><p class="csub">Нажмите на заголовок столбца, чтобы отсортировать</p>
+        <div class="tscroll"><table class="dt" id="ptable"></table></div>
+        <p class="src" id="ptable-src"></p>
+      </div>
+      <div class="charts">
+        <div class="chart" id="c-share"></div>
+        <div class="chart" id="c-ai"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prices" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Цены сессий</h2>
+      <p class="sec-lead">После десяти лет практики цена почти перестаёт расти, а разница между столицей и регионами — почти в два раза.</p>
+      <div class="charts">
+        <div class="chart" id="c-city"></div>
+        <div class="chart" id="c-exp"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demand" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Спрос</h2>
+      <p class="sec-lead">К психологу ходит примерно каждый восьмой, но в 2025 году онлайн-сервисам стали платить реже. Быстрее всего растёт корпоративный канал.</p>
+      <div class="charts">
+        <div class="chart" id="c-changes"></div>
+        <div class="chart" id="c-barriers"></div>
+        <div class="chart" id="c-employers"></div>
+        <div class="chart" id="c-consulted"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="income" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Доход психолога</h2>
+      <p class="sec-lead">Частная практика приносит 70–160 тыс. ₽ в месяц при 10–12 сессиях в неделю. Выберите сценарий или задайте свои параметры.</p>
+      <div class="calc">
+        <div class="panel">
+          <div class="fchips" id="presets" style="margin-bottom:10px"></div>
+          <p class="muted" id="presetDesc" style="font-size:14px;margin-bottom:20px"></p>
+          <div style="margin-bottom:18px"><div class="seg" role="group" aria-label="Формат работы"><button type="button" data-mode="platform">Через платформу</button><button type="button" data-mode="private">Своя практика</button></div></div>
+          <div class="range"><div class="lbl"><span>Цена сессии для клиента</span><b id="v-price"></b></div><input type="range" id="price" min="1000" max="15000" step="50"></div>
+          <div class="range" id="shareRow"><div class="lbl"><span>Доля психолога</span><b id="v-share"></b></div><input type="range" id="share" min="25" max="100" step="1"></div>
+          <div class="range"><div class="lbl"><span>Сессий в неделю</span><b id="v-sessions"></b></div><input type="range" id="sessions" min="1" max="35" step="1"></div>
+          <div class="range"><div class="lbl"><span>Отмены и неявки без оплаты</span><b id="v-noshow"></b></div><input type="range" id="noshow" min="0" max="30" step="1"></div>
+          <div class="range"><div class="lbl"><span>Недель без работы в год</span><b id="v-offweeks"></b></div><input type="range" id="offweeks" min="0" max="16" step="1"><span class="muted" style="font-size:13px">Отпуск, праздники, болезни</span></div>
+          <label style="margin-bottom:20px">Налоговый режим<select id="tax"></select></label>
+          <div class="range"><div class="lbl"><span>Расходы на профессию в месяц</span><b id="v-costs"></b></div><input type="range" id="costs" min="0" max="80000" step="1000"><span class="muted" style="font-size:13px">Супервизия, личная терапия, обучение, продвижение</span></div>
+        </div>
+        <div class="panel" style="position:sticky;top:84px">
+          <span class="eyebrow">Чистыми в месяц</span>
+          <div class="big" id="net"></div>
+          <p class="muted" id="netNote" style="font-size:15px"></p>
+          <div class="kpis">
+            <div class="kpi"><span>Оплачено клиентами</span><b id="k-rev"></b></div>
+            <div class="kpi"><span id="k-fee-l">Забирает платформа</span><b id="k-fee"></b></div>
+            <div class="kpi"><span>Налог</span><b id="k-tax"></b></div>
+            <div class="kpi"><span>Чистыми за рабочий час</span><b id="k-hour"></b></div>
+          </div>
+          <div class="bar" id="bar" role="img"></div>
+          <div class="legend" id="legend"></div>
+          <p class="muted" id="limitWarn" style="font-size:13px;margin-top:12px;color:var(--err)" hidden></p>
+          <h3 style="font-size:18px;margin-top:26px">Сравнение со штатной работой</h3>
+          <div class="hb" id="c-hired" style="margin-top:12px"></div>
+          <p class="src" style="font-size:12.5px;color:var(--muted);margin-top:10px">Штатная работа — 36–40 часов в неделю на месте. Формула: сессий в месяц × цена × доля психолога − налог − расходы.</p>
+        </div>
+      </div>
+      <div class="charts" style="margin-top:18px">
+        <div class="chart" id="c-incomes"></div>
+        <div class="chart">
+          <h3>Во что обходится вход в профессию и работа</h3>
+          <p class="csub">Платформы требуют 500+ часов обучения методу, 3+ года практики, личную терапию и супервизию: это 0,5–1,2 млн ₽ за 3–5 лет</p>
+          <table class="dt" id="costs-t"></table>
+          <p class="src">Источник: сайты учебных программ, <a href="https://npd.nalog.ru/" target="_blank" rel="noopener">ФНС России</a>, <a href="https://predprinimatel.ru/articles/vznosy-ip/" target="_blank" rel="noopener">Предприниматель.ру</a>, 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jobs" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Вакансии</h2>
+      <p class="sec-lead">На hh.ru — 30 активных резюме на одну вакансию психолога и медианная зарплата 49 тыс. ₽ на руки. В среднем по рынку труда — около 4 резюме на место.</p>
+      <div class="charts">
+        <div class="chart" id="c-sectors"></div>
+        <div class="chart" id="c-cities"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="law" style="padding-top:0">
+    <div class="wrap split">
+      <div>
+        <h2 class="sec-title">Регулирование</h2>
+        <p class="sec-lead" id="regStatus"></p>
+        <div class="timeline" id="timeline"></div>
+      </div>
+      <div class="chart" style="align-self:start">
+        <h3>Риски для психолога и платформ</h3>
+        <div class="list" style="margin-top:14px">
+          <div class="item" style="background:var(--bg)"><h3 style="font-size:17px">Закон о психологах</h3><p class="muted" style="font-size:15px">Если примут вариант с тремя годами стажа и экзаменом, часть специалистов после переподготовки потеряет право на частную практику.</p></div>
+          <div class="item" style="background:var(--bg)"><h3 style="font-size:17px">Кошелёк клиента</h3><p class="muted" style="font-size:15px">В 2025 году оплат онлайн-сервисам стало на 19% меньше: при сжатии бюджета терапию откладывают первой.</p></div>
+          <div class="item" style="background:var(--bg)"><h3 style="font-size:17px">Перепроизводство психологов</h3><p class="muted" style="font-size:15px">22 тыс. выпускников в год и 30 резюме на вакансию давят на цену сессии и доход новичков.</p></div>
+          <div class="item" style="background:var(--bg)"><h3 style="font-size:17px">Персональные данные</h3><p class="muted" style="font-size:15px">Сведения о здоровье — особая категория данных, штрафы за утечки с 30 мая 2025 года ужесточены.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sources" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Источники</h2>
+      <p class="sec-lead">Данные перенесены из открытого набора исследования «Рынок онлайн-психологии в России» (срез на 29 сентября 2026 года). Оценки рынка у разных аналитиков расходятся из-за охвата; опорный ряд — ГидМаркет, оценки исследователей помечены словом «оценка».</p>
+      <ol class="srclist" id="srclist"></ol>
     </div>
   </section>
 
   <section style="padding-top:0">
     <div class="wrap">
       <div class="sub">
-        <div><span class="eyebrow" style="color:#9FC0B2">Скоро</span><h2 style="margin-top:10px">Исследование рынка психологии</h2><p style="margin-top:14px">Готовим обзор с открытыми данными: цены сессий, условия платформ, нагрузка специалистов. Оставьте почту — пришлём, как только выйдет.</p></div>
+        <div><h2>Обновления исследования — на почту</h2><p style="margin-top:14px">Пришлём новый срез данных, когда он выйдет. Без рассылок о другом.</p></div>
         <div>
           <form class="inline-form" data-form="subscribe" data-source="research" novalidate>
             <label class="sr" for="rs">Email</label>
             <input id="rs" type="email" name="email" placeholder="ваш@email.ru" autocomplete="email" required>
-            <button class="btn light" type="submit">Получить исследование</button>
+            <button class="btn light" type="submit">Подписаться</button>
           </form>
           <p class="msg" aria-live="polite" style="margin-top:10px"></p>
         </div>
@@ -87,39 +247,139 @@
     </div>
   </section>
 </main>
+<div id="tip" role="tooltip"></div>
 <div id="site-footer"></div>
 <script src="/psychologists-data.js"></script>
 <script src="/common.js"></script>
+<script src="/analytics-data.js"></script>
 <script>
-const ids = ["price","load","weeks","cancel","fee","tax","costs"];
-const el = Object.fromEntries(ids.map(i=>[i,$("#"+i)]));
-const COLORS = {net:"#9FCDBB", tax:"#E9A27A", fee:"#F3D39B", costs:"#D5DCD8"};
-function calc(){
-  const price=+el.price.value, load=+el.load.value, weeks=+el.weeks.value, cancel=+el.cancel.value/100, fee=+el.fee.value/100, tax=+el.tax.value, costs=+el.costs.value;
-  const sessMonth = load*(1-cancel)*weeks/12;
-  const rev = sessMonth*price;
-  const feeSum = rev*fee;
-  const taxSum = rev*tax;             // налог считается с поступлений клиента
-  const net = rev - feeSum - taxSum - costs;
-  const hoursMonth = load*weeks/12*(75/60);
-  $("#v-price").textContent=rub(price); $("#v-load").textContent=load; $("#v-weeks").textContent=weeks;
-  $("#v-cancel").textContent=Math.round(cancel*100)+"%"; $("#v-fee").textContent=Math.round(fee*100)+"%"; $("#v-costs").textContent=rub(costs);
-  $("#net").textContent = rub(Math.round(net/100)*100);
-  $("#netNote").textContent = net<0 ? "Расходы больше дохода — стоит пересмотреть цену или нагрузку." : `Около ${rub(Math.round(net*12/1000)*1000)} в год после налогов, комиссий и расходов.`;
-  $("#k-rev").textContent = rub(Math.round(rev/100)*100);
-  $("#k-sess").textContent = Math.round(sessMonth);
-  $("#k-per").textContent = rub(Math.round(sessMonth? net/sessMonth : 0));
-  $("#k-hour").textContent = rub(Math.round(hoursMonth? net/hoursMonth : 0));
-  const parts = [["net","На руки",Math.max(net,0)],["tax","Налог",taxSum],["fee","Комиссии",feeSum],["costs","Расходы на профессию",Math.min(costs,rev)]];
-  const total = parts.reduce((s,p)=>s+p[2],0) || 1;
-  $("#bar").innerHTML = parts.map(([k,,v])=>{const pct=v/total*100; return `<div style="width:${pct}%;background:${COLORS[k]}">${pct>=9?Math.round(pct)+"%":""}</div>`}).join("");
-  $("#bar").setAttribute("aria-label", parts.map(([,t,v])=>`${t} ${Math.round(v/total*100)}%`).join(", "));
-  $("#legend").innerHTML = parts.map(([k,t,v])=>`<span><i style="background:${COLORS[k]}"></i>${t} · ${rub(Math.round(v/100)*100)}</span>`).join("");
-  $$("[data-fee]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.fee===el.fee.value));
+const fmt = n => n.toLocaleString("ru-RU").replace(/ /g," ");
+const tsd = n => (n/1000).toLocaleString("ru-RU",{maximumFractionDigits:0}).replace(/ /g," ")+" тыс. ₽";
+const src = keys => "Источник: " + keys.map(k=>`<a href="${SRC[k].u}" target="_blank" rel="noopener">${SRC[k].t}</a>`).join("; ");
+const table = (heads, rows) => `<details class="tbl"><summary>Таблица</summary><table class="dt"><tr>${heads.map(h=>`<th>${h}</th>`).join("")}</tr>${rows.map(r=>`<tr>${r.map((c,i)=>`<td${i?' class="n"':''}>${c}</td>`).join("")}</tr>`).join("")}</table></details>`;
+
+function hbars(rows, {max, valFmt=fmt, sub}={}){
+  const m = max || Math.max(...rows.map(r=>r[1]));
+  return `<div class="hb">${rows.map(r=>`<span class="lbl">${r[0]}${sub?`<small>${sub(r)}</small>`:""}</span><span class="track" data-tip="${r[0]}: ${valFmt(r[1])}"><span class="fill" style="width:${r[1]/m*100}%"></span></span><span class="val">${valFmt(r[1])}</span>`).join("")}</div>`;
 }
-ids.forEach(i=>el[i].addEventListener("input",calc));
-$$("[data-fee]").forEach(b=>b.addEventListener("click",()=>{ el.fee.value=b.dataset.fee; calc(); }));
-calc();
+function ranges(rows, {max, valFmt=fmt, rangeFmt, valText}={}){
+  const m = max || Math.max(...rows.map(r=>r[3]??r[2]??r[1]));
+  return `<div class="hb">${rows.map(r=>{
+    const [l,v,lo,hi]=r, band = lo!=null&&hi!=null&&hi!==lo ? `<span class="band" style="left:${lo/m*100}%;width:${(hi-lo)/m*100}%"></span>` : "";
+    return `<span class="lbl">${l}</span><span class="track" data-tip="${l}: ${valFmt(v)}${band?` (${rangeFmt?rangeFmt(lo,hi):valFmt(lo)+"–"+valFmt(hi)})`:""}">${band}<span class="dot" style="left:${v/m*100}%"></span></span><span class="val">${valText?valText(r):valFmt(v)}</span>`;
+  }).join("")}</div>`;
+}
+function vbars(years, values, valFmt=v=>v){
+  const m = Math.max(...values);
+  return `<div class="vb">${values.map((v,i)=>`<div class="col" data-tip="${years[i]}: ${valFmt(v)}"><span class="v">${valFmt(v)}</span><span class="bar" style="height:${v/m*80}%"></span></div>`).join("")}</div><div class="vx">${years.map(y=>`<span>${y}</span>`).join("")}</div>`;
+}
+const chart = (id, title, sub, body, note, keys) => { $("#"+id).innerHTML = `<h3>${title}</h3>${sub?`<p class="csub">${sub}</p>`:""}${body}${note?`<p class="cnote">${note}</p>`:""}${keys?`<p class="src">${src(keys)}</p>`:""}`; };
+
+/* KPI */
+$("#kpis").innerHTML = KPIS.map(k=>`<div class="ktile"><b>${k.v}</b><p>${k.l}</p><small>${k.n}</small><small>${src(k.s)}</small></div>`).join("");
+
+/* market */
+const r1 = v => v.toLocaleString("ru-RU",{maximumFractionDigits:1});
+chart("c-market","Рынок платных услуг психологов","млрд ₽ в год, онлайн и офлайн", vbars(MARKET.years, MARKET.values, r1) + table(["Год","млрд ₽"], MARKET.years.map((y,i)=>[y, r1(MARKET.values[i])])), MARKET.note, MARKET.s);
+chart("c-top5","Выручка пяти крупнейших платформ вместе","млн ₽; рост остановился в 2024 году", vbars(PLATFORM_REV.total.years, PLATFORM_REV.total.values, fmt) + table(["Год","млн ₽"], PLATFORM_REV.total.years.map((y,i)=>[y, fmt(PLATFORM_REV.total.values[i])])), PLATFORM_REV.profit, PLATFORM_REV.s);
+chart("c-platrev","Выручка крупнейших платформ в 2025 году","млн ₽, бухгалтерская отчётность",
+  hbars(PLATFORM_REV.rows, {valFmt:v=>fmt(v)+" млн ₽", sub:r=>{const d=Math.round((r[1]/r[2]-1)*100);return `2024: ${fmt(r[2])} млн, ${d>0?"+":""}${d}%`;}}),
+  "Ясно отражает в выручке в основном комиссию, поэтому по обороту его отрыв больше. У YouTalk и «Понимаю» — убытки или около нуля.", PLATFORM_REV.s);
+
+/* platforms table */
+const PCOLS = [["Платформа",r=>r[0],"s"],["Модель",r=>r[1],"s"],["Цена сессии, ₽",r=>r[2],"n",r=>r[2]==null?"—":r[2]===r[3]?fmt(r[2]):`${fmt(r[2])}–${fmt(r[3])}`],["Доля психолога",r=>parseInt(r[4])||-1,"n",r=>r[4]],["Стаж от, лет",r=>r[5]??-1,"n",r=>r[5]??"—"],["Психологов",r=>r[6]??-1,"n",r=>r[6]==null?"—":fmt(r[6])],["B2B",r=>r[7]?1:0,"n",r=>r[7]?"да":"—"]];
+let psort = {i:2, dir:1};
+function renderPTable(){
+  const c = PCOLS[psort.i];
+  const isNull = v => v==null || v===-1;
+  const rows = [...PLATFORMS].sort((a,b)=>{const x=c[1](a), y=c[1](b); if(isNull(x)!==isNull(y)) return isNull(x)?1:-1; return (c[2]==="s"? String(x).localeCompare(String(y),"ru") : (x-y)) * psort.dir;});
+  $("#ptable").innerHTML = `<tr>${PCOLS.map((h,i)=>`<th aria-sort="${i===psort.i?(psort.dir>0?"ascending":"descending"):"none"}"><button type="button" data-i="${i}">${h[0]}${i===psort.i?(psort.dir>0?" ↑":" ↓"):""}</button></th>`).join("")}</tr>`
+    + rows.map(r=>`<tr>${PCOLS.map((h,i)=>`<td${i>1?' class="n"':''}>${h[3]?h[3](r):h[1](r)}</td>`).join("")}</tr>`).join("");
+}
+$("#ptable").addEventListener("click",e=>{const b=e.target.closest("button[data-i]"); if(!b) return; const i=+b.dataset.i; psort = {i, dir: psort.i===i ? -psort.dir : (PCOLS[i][2]==="n"?-1:1)}; renderPTable();});
+renderPTable();
+$("#ptable-src").innerHTML = PLATFORMS_NOTE + " " + src(["yasnoP","zig","youtalk","priem"]);
+
+chart("c-share","Сколько психолог получает с сессии","% от цены, которую платит клиент; полоса — от первых сессий к постоянным клиентам",
+  ranges(SHARE.rows.map(r=>[r[0],r[2]===r[1]?r[1]:Math.round((r[1]+r[2])/2),r[1],r[2]]), {max:100, valFmt:v=>v+"%", rangeFmt:(a,b)=>`${a}–${b}%`, valText:r=>r[2]===r[3]?r[2]+"%":`${r[2]}–${r[3]}%`}) + table(["Платформа","Доля психолога"], SHARE.rows.map(r=>[r[0], r[1]===r[2]?r[1]+"%":`${r[1]}–${r[2]}%`])), SHARE.note, SHARE.s);
+$("#c-ai").innerHTML = `<h3>ИИ-психологи: сколько стоит подписка</h3><p class="csub">Месяц ИИ-собеседника стоит в 4–8 раз дешевле одной сессии с человеком</p><table class="dt">${AI_PRICES.map(r=>`<tr><td>${r[0]}</td><td class="n">${r[1]}</td></tr>`).join("")}</table><p class="cnote">Для сравнения — живая подписка «Мой психолог»: 5 000 ₽ в месяц за 3 сессии.</p><p class="src">Источник: сайты сервисов и App Store, сентябрь 2026</p>`;
+
+/* prices */
+chart("c-city","Средняя цена сессии у частных психологов","₽ за час, 2024", hbars(PRICE_CITY.rows,{valFmt:v=>fmt(v)+" ₽"}), PRICE_CITY.note, PRICE_CITY.s);
+chart("c-exp","Цена онлайн-сессии по стажу психолога","₽ за 50–60 минут, типичная цена", hbars(PRICE_EXP.rows,{valFmt:v=>fmt(v)+" ₽"}), PRICE_EXP.note, PRICE_EXP.s);
+
+/* demand */
+const mx = Math.max(...DEMAND.changes.map(r=>Math.abs(r[1])));
+chart("c-changes","Онлайн-сервисы в 2025 году: интерес растёт, оплат меньше","Изменение к тому же периоду прошлого года",
+  `<div class="dv">${DEMAND.changes.map(r=>`<span class="lbl">${r[0]}<small style="display:block;color:var(--muted);font-size:12px">${r[2]}</small></span><span class="track" data-tip="${r[0]}: ${r[1]>0?"+":""}${r[1]}%"><span class="fill ${r[1]>=0?"pos":"neg"}" style="width:${Math.abs(r[1])/mx*50}%"></span></span><span class="val" style="font-weight:600;text-align:right">${r[1]>0?"+":"−"}${Math.abs(r[1])}%</span>`).join("")}</div>`,
+  DEMAND.changesNote, DEMAND.changesS);
+chart("c-barriers","Почему не идут к психологу","% среди тех, кому была нужна помощь", hbars(DEMAND.barriers,{max:100,valFmt:v=>v+"%"}), DEMAND.barriersNote, DEMAND.barriersS);
+chart("c-employers","Работодатели, которые помогают сотрудникам с психологом","Ежегодный опрос hh.ru и Alter, %", vbars(DEMAND.employers.years, DEMAND.employers.values, v=>v+"%"), DEMAND.employersNote, DEMAND.employersS);
+chart("c-consulted","Сколько россиян обращались к психологу","Доля взрослых, %", hbars(DEMAND.consulted,{max:100,valFmt:v=>v+"%"}),
+  "Женщины обращаются вдвое чаще мужчин (18% против 8%), жители Москвы и Петербурга — втрое чаще сельских (25% против 9%).", ["wciom24","wciom25"]);
+
+/* income ranges */
+chart("c-incomes","Сколько психолог получает на руки в месяц","Точка — типичное значение, полоса — разброс",
+  ranges(INCOME.rows,{max:300000, valFmt:tsd, rangeFmt:(a,b)=>`${tsd(a)} – ${tsd(b)}`}) + table(["Сценарий","Типично","Разброс"], INCOME.rows.map(r=>[r[0], tsd(r[1]), r[2]!=null?`${tsd(r[2])} – ${tsd(r[3])}`:"—"])), INCOME.note, INCOME.s);
+$("#costs-t").innerHTML = COSTS.map(r=>`<tr><td>${r[0]}</td><td class="n">${r[1]}</td></tr>`).join("");
+
+/* jobs */
+chart("c-sectors","Медианная зарплата по секторам","₽ на руки в месяц; n — число вакансий", hbars(HH.sectors,{valFmt:tsd, sub:r=>`n = ${r[2]}`}), HH.note, HH.s);
+chart("c-cities","Медианная зарплата по городам","₽ на руки в месяц", hbars(HH.cities,{valFmt:tsd, sub:r=>`n = ${r[2]}`}), "Всего 617 вакансий в профроли «Психолог» и 18,8 тыс. активных резюме.", HH.s);
+
+/* regulation */
+$("#regStatus").textContent = REG_STATUS;
+$("#timeline").innerHTML = REGULATION.map(r=>`<div><b>${r[0]}</b><p>${r[1]}</p></div>`).join("");
+
+/* sources */
+$("#srclist").innerHTML = Object.values(SRC).map(s=>`<li><a href="${s.u}" target="_blank" rel="noopener">${s.t}</a></li>`).join("");
+
+/* calculator */
+const C = Object.fromEntries(["price","share","sessions","noshow","offweeks","tax","costs"].map(i=>[i,$("#"+i)]));
+C.tax.innerHTML = Object.entries(TAXES).map(([k,t])=>`<option value="${k}">${t.label}</option>`).join("");
+let mode = "platform", notes=10, suph=2, mkth=0;
+$("#presets").innerHTML = PRESETS.map(p=>`<button class="chip sm" type="button" data-p="${p.id}">${p.label}</button>`).join("");
+function applyPreset(id){
+  const p = PRESETS.find(x=>x.id===id); mode=p.p.mode; notes=p.p.notes; suph=p.p.suph; mkth=p.p.mkth;
+  ["price","share","sessions","noshow","offweeks","tax","costs"].forEach(k=>C[k].value=p.p[k]);
+  $$("#presets .chip").forEach(c=>c.setAttribute("aria-pressed", c.dataset.p===id));
+  $("#presetDesc").textContent = p.desc; calc();
+}
+$("#presets").addEventListener("click",e=>{const b=e.target.closest("[data-p]"); if(b) applyPreset(b.dataset.p);});
+$$("[data-mode]").forEach(b=>b.addEventListener("click",()=>{ mode=b.dataset.mode; if(mode==="private") C.share.value=100; else if(+C.share.value===100) C.share.value=63; clearPreset(); calc(); }));
+function clearPreset(){ $$("#presets .chip").forEach(c=>c.setAttribute("aria-pressed","false")); $("#presetDesc").textContent="Свои параметры."; }
+Object.values(C).forEach(el=>el.addEventListener("input",()=>{clearPreset();calc();}));
+const COLS = {net:"#6FAE97", fee:"#F3D39B", tax:"#E9A27A", costs:"#CBD5D0"};
+function calc(){
+  const price=+C.price.value, share=(mode==="private"?100:+C.share.value)/100, s=+C.sessions.value, ns=+C.noshow.value/100, off=+C.offweeks.value, costs=+C.costs.value, tx=TAXES[C.tax.value];
+  $$("[data-mode]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.mode===mode));
+  $("#shareRow").hidden = mode==="private";
+  const perMonth = s*(1-ns)*(52-off)/12;
+  const rev = perMonth*price;
+  const fee = mode==="private" ? rev*0.02 : rev*(1-share);
+  const income = rev - fee;
+  const tax = tx.fixed ? Math.max(tx.rate*income*12, tx.fixed + 0.01*Math.max(0,income*12-300000))/12 : income*tx.rate;
+  const net = income - tax - costs;
+  const hoursWeek = s + s*notes/60 + suph*12/52 + mkth;
+  const hourNet = net / (hoursWeek*(52-off)/12);
+  $("#v-price").textContent=fmt(price)+" ₽"; $("#v-share").textContent=Math.round(share*100)+"%"; $("#v-sessions").textContent=s; $("#v-noshow").textContent=Math.round(ns*100)+"%"; $("#v-offweeks").textContent=off; $("#v-costs").textContent=fmt(costs)+" ₽";
+  $("#net").textContent = tsd(Math.round(net/1000)*1000);
+  $("#netNote").textContent = net<0 ? "Расходы больше дохода — стоит пересмотреть цену или нагрузку." : `≈ ${fmt(Math.round(net*12/1000))} тыс. ₽ в год · ${Math.round(perMonth)} сессий в месяц · ${Math.round(hoursWeek)} ч работы в неделю`;
+  $("#k-rev").textContent = tsd(rev); $("#k-fee-l").textContent = mode==="private"?"Эквайринг 2%":"Забирает платформа"; $("#k-fee").textContent = tsd(fee);
+  $("#k-tax").textContent = fmt(Math.round(tax))+" ₽"; $("#k-hour").textContent = fmt(Math.round(hourNet))+" ₽";
+  const parts=[["net","Чистыми",Math.max(net,0)],["fee",mode==="private"?"Эквайринг":"Платформа",fee],["tax","Налог",tax],["costs","Расходы",Math.min(costs,rev)]];
+  const tot = parts.reduce((a,p)=>a+p[2],0)||1;
+  $("#bar").innerHTML = parts.map(([k,t,v])=>{const pct=v/tot*100; return `<div style="width:${pct}%;background:${COLS[k]}" data-tip="${t}: ${tsd(v)} (${Math.round(pct)}%)">${pct>=9?Math.round(pct)+"%":""}</div>`}).join("");
+  $("#bar").setAttribute("aria-label", parts.map(([,t,v])=>`${t} ${Math.round(v/tot*100)}%`).join(", "));
+  $("#legend").innerHTML = parts.map(([k,t,v])=>`<span><i style="background:${COLS[k]}"></i>${t} · ${tsd(v)}</span>`).join("");
+  const w = $("#limitWarn"); if(tx.limit && income*12>tx.limit){ w.hidden=false; w.textContent=`Доход ${fmt(Math.round(income*12/1000))} тыс. ₽ в год превышает лимит самозанятости 2,4 млн ₽ — нужен ИП.`; } else w.hidden=true;
+  $("#c-hired").innerHTML = hbars([["Ваш сценарий",Math.max(0,Math.round(net))],...HIRED],{max:Math.max(net,90000)*1.05,valFmt:tsd}).replace(/^<div class="hb">|<\/div>$/g,"");
+}
+applyPreset("p_new");
+
+/* tooltip */
+const tip=$("#tip");
+document.addEventListener("pointermove",e=>{const t=e.target.closest("[data-tip]"); if(!t){tip.style.opacity=0;return;} tip.textContent=t.dataset.tip; tip.style.opacity=1; const x=Math.min(e.clientX+14, innerWidth-tip.offsetWidth-8); tip.style.left=x+"px"; tip.style.top=(e.clientY+16)+"px";});
 </script>
 </body>
 </html>

@@ -302,3 +302,24 @@ blockquote.q{margin:24px 0 0;padding:18px 22px;border-left:3px solid var(--warm-
 @media(prefers-reduced-motion:reduce){.ai-cat img{animation:none}}
 .sub.letters p{color:var(--muted)}
 @media(max-width:860px){.hero-img{grid-template-columns:1fr}.hero-photo{max-height:none;aspect-ratio:4/3}}
+
+/* voice chat */
+.vc{display:flex;flex-direction:column;gap:16px;min-width:0}
+.vc h2{margin:0}
+.vc-actions{display:flex;gap:10px;flex-wrap:wrap}
+.vc-log{background:#fff;border-radius:20px;padding:14px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.vc-log p{margin:0;padding:10px 14px;border-radius:16px;max-width:88%;font-size:15px;line-height:1.45;overflow-wrap:anywhere}
+.vc-log .u{align-self:flex-end;background:var(--soft)}
+.vc-log .a{align-self:flex-start;background:var(--mint)}
+.vc-log .interim{opacity:.6;font-style:italic}
+.vc-check{flex-direction:row;align-items:center;cursor:pointer;color:var(--ink)}
+.status{align-self:flex-start}
+.status[data-state="listening"]::before{background:var(--ok);animation:pulse 1.2s ease-in-out infinite}
+.status[data-state="thinking"]::before{background:#6C7BD0;animation:pulse .8s ease-in-out infinite}
+.status[data-state="speaking"]::before{background:var(--accent);animation:pulse .6s ease-in-out infinite}
+.status[data-state="error"]::before{background:var(--err)}
+@keyframes pulse{50%{opacity:.3;transform:scale(1.4)}}
+.ai-cat[data-state="listening"] img{animation-duration:2.4s}
+.ai-cat[data-state="speaking"] img{animation-duration:1.4s}
+@media(prefers-reduced-motion:reduce){.status::before{animation:none!important}}
+[hidden]{display:none!important}

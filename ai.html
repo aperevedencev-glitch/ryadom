@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ИИ-собеседник: демо-режим — Рядом</title>
-<meta name="description" content="Голосовой ИИ-собеседник «Рядом» для поддержки между встречами с психологом. Сейчас работает в демо-режиме.">
+<title>ИИ-собеседник — Рядом</title>
+<meta name="description" content="Голосовой ИИ-собеседник «Рядом» для поддержки между встречами с психологом. Говорите голосом — он выслушает и ответит.">
 <meta name="theme-color" content="#F3F4F0">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,35 +15,38 @@
 <div id="site-header"></div>
 <main>
   <div class="wrap page-head">
-    <h1 class="page">ИИ-собеседник: демо-режим</h1>
-    <p class="lead">Здесь появится голосовой собеседник, с которым можно поговорить между встречами с психологом. Живой режим пока выключен — начать настоящий разговор нельзя.</p>
+    <h1 class="page">ИИ-собеседник</h1>
+    <p class="lead">Голосовой собеседник, с которым можно поговорить между встречами с психологом: выговориться, успокоиться, разложить мысли. Без записи и анкет.</p>
   </div>
 
   <div class="wrap">
     <div class="ai-hero">
-      <div class="ai-cat"><img src="img/cat-curled.webp" width="800" height="730" alt="Свернувшаяся клубком кошка со светящимися линиями — образ ИИ-собеседника"></div>
-      <div style="display:flex;flex-direction:column;gap:16px">
-        <span class="status" style="align-self:flex-start">Демо-режим</span>
-        <h2>Живой разговор пока недоступен</h2>
-        <p class="muted">Микрофон не включается, сообщения не отправляются. Оставьте почту — напишем, как только собеседник заработает.</p>
-        <form class="inline-form" data-form="subscribe" data-source="ai_waitlist" novalidate>
-          <label class="sr" for="wl">Email</label>
-          <input id="wl" type="email" name="email" placeholder="ваш@email.ru" autocomplete="email" required>
-          <button class="btn" type="submit">Сообщить о запуске</button>
+      <div class="ai-cat" data-state="idle" id="vc-cat"><img src="img/cat-curled.webp" width="800" height="730" alt="Свернувшаяся клубком кошка со светящимися линиями — образ ИИ-собеседника"></div>
+      <div class="vc">
+        <span class="status" id="vc-status" data-state="idle" aria-live="polite">Готов к разговору</span>
+        <h2>Поговорите голосом</h2>
+        <p class="muted" id="vc-hint">Нажмите «Начать разговор» и разрешите доступ к микрофону. Говорите как обычно — собеседник ответит вслух и снова вас выслушает.</p>
+        <div class="vc-actions">
+          <button class="btn" type="button" id="vc-toggle">Начать разговор</button>
+          <button class="btn ghost" type="button" id="vc-interrupt" hidden>Перебить</button>
+        </div>
+        <div class="vc-log" id="vc-log" aria-live="polite" hidden></div>
+        <form class="inline-form" id="vc-form" autocomplete="off">
+          <label class="sr" for="vc-text">Сообщение</label>
+          <input id="vc-text" type="text" maxlength="2000" placeholder="Или напишите текстом…">
+          <button class="btn ghost" type="submit">Отправить</button>
         </form>
-        <p class="msg" aria-live="polite"></p>
-        <ul class="perks" style="margin-top:0">
-          <li>Не нужно записываться и заполнять анкеты</li>
-          <li>Честно говорит, что он ИИ, и подсказывает, когда лучше к человеку</li>
-        </ul>
-        <p style="font-size:14px;color:var(--warm-ink)">В кризисной ситуации звоните 112. ИИ-собеседник не заменяет экстренную помощь.</p>
+        <label class="check vc-check"><input type="checkbox" id="vc-voice" checked> <span>Озвучивать ответы</span></label>
+        <p class="msg" id="vc-msg" aria-live="polite"></p>
+        <p style="font-size:14px;color:var(--warm-ink);margin:0">В кризисной ситуации звоните 112 или на телефон доверия 8-800-2000-122. ИИ-собеседник не заменяет экстренную помощь.</p>
+        <p style="font-size:13px;margin:0" class="muted">Это ИИ, а не человек. Мы не сохраняем разговор: он живёт только в этой вкладке. Речь распознаёт ваш браузер (в Chrome — через сервисы Google), ответы формирует модель Claude.</p>
       </div>
     </div>
   </div>
 
   <section>
     <div class="wrap">
-      <h2>Что он будет уметь</h2>
+      <h2>Что он умеет</h2>
       <div class="feat">
         <div class="item"><h3>Выслушать</h3><p class="muted">Когда не с кем поговорить или не хочется нагружать близких.</p></div>
         <div class="item"><h3>Помочь успокоиться</h3><p class="muted">Дыхание и заземление вместе с голосом, если накрыла тревога.</p></div>
@@ -78,6 +81,7 @@
 <div id="site-footer"></div>
 <script src="psychologists-data.js"></script>
 <script src="common.js"></script>
+<script src="ai-voice.js"></script>
 <script>$("#faces").innerHTML = PSY.slice(4,8).map(p=>avatar(p)).join("") + `<span class="more">+${PSY.length-4}</span>`;</script>
 </body>
 </html>

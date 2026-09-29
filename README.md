@@ -12,13 +12,15 @@
 | `/blog`, `/article?slug=…` | blog.html, article.html | Журнал с поиском и 9 статьями |
 | `/analytics` | analytics.html, analytics-data.js | Рынок психологии: графики с источниками, таблица платформ, калькулятор дохода |
 | `/join` | join.html | Отбор и заявка психолога |
+| `/invest` | invest.html | Для инвесторов: рынок с источниками, тезисы, продукт, модель заработка, финансовый калькулятор со сценариями, раунд и план, риски, форма связи |
 
 Общее: `styles.css`, `psychologists-data.js` (анкеты), `common.js` (шапка/подвал, формы), `articles.js` (статьи).
 
 ## Формы → Supabase (проект wuvadreohiphwevprwmk)
 - `bookings` — записи на встречу (в т.ч. выбранный слот);
 - `subscribers` — email + `source`: `letters` (письма), `ai_waitlist` (ИИ), `research` (исследование);
-- `psychologist_applications` — заявки психологов.
+- `psychologist_applications` — заявки психологов;
+- `investor_requests` — заявки инвесторов (имя, контакт, тип инвестора, чек, сообщение).
 
 Публичный ключ в коде даёт только INSERT (RLS), читать данные с сайта нельзя.
 Смотреть заявки: Supabase → Table Editor.

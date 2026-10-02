@@ -72,7 +72,7 @@ const LOGO = `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16
 /* ---- layout ---- */
 function renderLayout(){
   const page = document.body.dataset.page || "";
-  const nav = [["psychologists","psychologists.html","Психологи"],["ai","ai.html","ИИ-собеседник"],["blog","blog.html","Журнал"],["analytics","analytics.html","Аналитика"],["join","join.html","Психологам"]];
+  const nav = [["psychologists","psychologists.html","Психологи"],["ai","ai.html","ИИ-собеседник"],["blog","blog.html","Журнал"],["analytics","analytics.html","Аналитика"],["join","join.html","Психологам"],["invest","invest.html","Инвесторам"]];
   const h = $("#site-header");
   if(h) h.outerHTML = `
   <div class="demo">Демо-проект: психологи, анкеты и отзывы вымышлены, фотографии созданы нейросетью. Заявки сохраняются, но никто не перезвонит.</div>
@@ -95,6 +95,7 @@ function renderLayout(){
       <div><a class="logo" href="index.html">${LOGO}Рядом</a><p class="muted" style="margin-top:10px;max-width:320px">Психологи онлайн, ИИ-собеседник и письма поддержки. Выберите, с чего начать.</p></div>
       <div><h4>Клиентам</h4><ul>${BOT_USERNAME?`<li><a href="https://t.me/${BOT_USERNAME}" target="_blank" rel="noopener">Написать в Telegram</a></li>`:""}<li><a href="psychologists.html">Все психологи</a></li><li><a href="#" data-open-booking>Записаться</a></li><li><a href="ai.html">ИИ-собеседник</a></li><li><a href="index.html#faq">Вопросы и ответы</a></li></ul></div>
       <div><h4>Специалистам</h4><ul><li><a href="join.html">Как попасть в команду</a></li><li><a href="blog.html">Журнал</a></li><li><a href="analytics.html">Аналитика и калькулятор</a></li></ul></div>
+      <div><h4>Инвесторам</h4><ul><li><a href="invest.html">Рядом для инвесторов</a></li><li><a href="invest.html#calc">Финансовая модель</a></li><li><a href="invest.html#contact">Связаться с командой</a></li></ul></div>
     </div>
     <p class="copy">© 2026 «Рядом». Демо-проект. Не является медицинской услугой.</p>
   </div></footer>`;

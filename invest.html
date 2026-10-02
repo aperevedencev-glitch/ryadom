@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Инвесторам — Рядом</title>
+<meta name="description" content="«Рядом» для инвесторов: рынок онлайн-психологии в цифрах, модель заработка, финансовый калькулятор, риски, план развития и форма для связи.">
+<meta name="theme-color" content="#F3F4F0">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.an-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.inv-hero{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+@media(max-width:860px){.inv-hero{grid-template-columns:1fr}}
+.inv-hero .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:960px){.kgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.kgrid{grid-template-columns:1fr}}
+.ktile{background:#fff;border-radius:22px;padding:22px}
+.ktile b{display:block;font:400 32px/1.1 var(--serif)}
+.ktile p{margin-top:8px}
+.ktile small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+.ktile small a{color:var(--muted)}
+.chart{background:#fff;border-radius:24px;padding:26px}
+.chart h3{font-size:21px}
+.chart .csub{color:var(--muted);font-size:14px;margin:4px 0 18px}
+.chart .src{font-size:12.5px;color:var(--muted);margin-top:14px}
+.chart .src a{color:var(--muted)}
+.chart .cnote{font-size:14px;color:var(--muted);margin-top:14px}
+.charts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:1000px){.charts{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.charts{grid-template-columns:1fr}}
+.charts>*,.calc>*,.split>*{min-width:0}
+.sec-title{margin:0 0 8px}
+.sec-lead{color:var(--muted);max-width:760px;margin-bottom:26px}
+.hb{display:grid;grid-template-columns:minmax(110px,42%) 1fr auto;gap:8px 12px;align-items:center;font-size:14px}
+.hb .track{height:18px;position:relative}
+.hb .fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:#6FAE97}
+.hb .val{font-weight:600;white-space:nowrap;text-align:right}
+.vb{display:flex;align-items:flex-end;gap:10px;height:190px;padding-top:24px;border-bottom:1px solid var(--line)}
+.vb .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.vb .bar{margin:0;width:100%;max-width:56px;background:#6FAE97;border-radius:4px 4px 0 0}
+.vb .col:last-child .bar{background:#2F6E57}
+.vb .v{font-size:13px;font-weight:600;margin-bottom:4px;white-space:nowrap}
+.vx{display:flex;gap:10px}
+.vx span{flex:1;text-align:center;font-size:13px;color:var(--muted);padding-top:6px}
+.thesis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.thesis{grid-template-columns:1fr}}
+.thesis .item{display:flex;flex-direction:column;gap:8px}
+.thesis .n{font:400 44px/1 var(--serif);color:var(--warm-ink)}
+.streams{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.streams{grid-template-columns:1fr}}
+.stream{border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.stream.w{background:var(--warm)} .stream.m{background:var(--mint)} .stream.l{background:#E6E3F3}
+.stream .big{font-size:38px;margin:4px 0 0}
+.stream small{color:var(--muted);font-size:13px}
+.prod{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.prod{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.prod{grid-template-columns:1fr}}
+.prod a.item{text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:transform .15s}
+.prod a.item:hover{transform:translateY(-2px)}
+.prod .item b{font:400 30px/1 var(--serif)}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--bg);border-radius:999px;padding:4px;gap:4px}
+.seg button{border:0;background:none;border-radius:999px;padding:8px 14px;font:14px var(--sans);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08);font-weight:600}
+.calc h3{font-size:21px;margin:22px 0 12px}
+.calc h3:first-child{margin-top:0}
+.range .lbl b{white-space:nowrap}
+table.dt{width:100%;border-collapse:collapse;font-size:14px;margin-top:14px}
+table.dt th,table.dt td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
+table.dt th{font-weight:600;color:var(--muted);font-size:13px}
+table.dt td.n,table.dt th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.neg{color:var(--err)} .pos{color:var(--ok)}
+.funds{display:flex;height:48px;border-radius:14px;overflow:hidden;margin:6px 0 16px}
+.funds div{display:grid;place-items:center;font-size:13px;font-weight:600;min-width:0;white-space:nowrap;overflow:hidden}
+.timeline{display:flex;flex-direction:column;margin-top:10px;border-left:2px solid var(--line);padding-left:22px}
+.timeline div{position:relative;padding:0 0 18px}
+.timeline div::before{content:"";position:absolute;left:-29px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.timeline b{display:block;font-size:14px}
+.timeline p{color:var(--muted);font-size:15px}
+.risk{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.risk p+p{margin-top:8px}
+.risk .muted b{color:var(--ink);font-weight:600}
+@media(max-width:700px){.risk{grid-template-columns:1fr}}
+.disclaimer{background:var(--warm);color:var(--warm-ink);border-radius:20px;padding:18px 22px;font-size:15px;margin-top:22px}
+</style>
+</head>
+<body data-page="invest">
+<div id="site-header"></div>
+<main>
+  <div class="wrap"><div class="page-head">
+    <div class="inv-hero">
+      <div>
+        <span class="eyebrow">Для инвесторов · сентябрь 2026</span>
+        <h1 class="page" style="margin-top:10px">Инвестиции в психологическую помощь, которая рядом</h1>
+        <p class="lead">«Рядом» соединяет проверенных психологов и ИИ-собеседника в одном сервисе: человек выговаривается сразу, а глубокую работу продолжает со специалистом. Здесь — рынок в цифрах, модель заработка и калькулятор, в котором можно проверить наши допущения.</p>
+        <div class="acts"><a class="btn" href="#contact">Обсудить участие</a><a class="btn ghost" href="#calc">Открыть финансовую модель</a></div>
+      </div>
+      <div class="tile mint" style="min-height:0">
+        <span class="eyebrow">Коротко</span>
+        <ul class="perks" style="margin-top:0">
+          <li>Рынок платных услуг психологов — 64,6 млрд ₽, +30% за год</li>
+          <li>Пятёрка лидеров онлайна упёрлась в 2,15 млрд ₽ выручки</li>
+          <li>25 млн человек не дошли до психолога: «дорого», «боюсь шарлатана»</li>
+          <li>Ответ «Рядом»: отбор специалистов + ИИ между встречами + B2B</li>
+        </ul>
+      </div>
+    </div>
+    <nav class="an-nav" aria-label="Разделы">
+      <a class="chip sm" href="#market">Рынок</a><a class="chip sm" href="#thesis">Возможность</a><a class="chip sm" href="#product">Продукт</a><a class="chip sm" href="#model">Модель</a><a class="chip sm" href="#calc">Калькулятор</a><a class="chip sm" href="#funds">Раунд и план</a><a class="chip sm" href="#risks">Риски</a><a class="chip sm" href="#contact">Связаться</a>
+    </nav>
+    <p class="disclaimer">Демо-страница. Цифры рынка — из открытых источников (ссылки под каждой). Финансовая модель, план и распределение средств — иллюстрация для обсуждения, а не прогноз, оферта или инвестиционная рекомендация.</p>
+  </div></div>
+
+  <div class="wrap"><div class="kgrid" id="kpis"></div></div>
+
+  <section id="market">
+    <div class="wrap">
+      <h2 class="sec-title">Почему сейчас</h2>
+      <p class="sec-lead">Рынок растёт быстрее экономики, а работодатели всё чаще платят за психолога сотрудникам. При этом большая часть спроса пока не превращается в оплаченные сессии.</p>
+      <div class="charts">
+        <article class="chart" id="c-market"></article>
+        <article class="chart" id="c-b2b"></article>
+        <article class="chart" id="c-barriers"></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="thesis" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Где возможность</h2>
+      <p class="sec-lead">Крупные платформы выросли на подборе психолога и остановились: выручка пятёрки в 2025 году снизилась на 3%, а их общая прибыль сжалась до 8 млн ₽. Мы видим три незакрытые потребности.</p>
+      <div class="thesis">
+        <div class="item"><span class="n">31%</span><h3>Доверие</h3><p class="muted">боятся попасть к шарлатану. У нас — проверка дипломов, личная терапия, супервизия и стаж от трёх лет в каждой анкете, без округлений.</p></div>
+        <div class="item"><span class="n">4–8×</span><h3>Цена входа</h3><p class="muted">Месяц ИИ-собеседника дешевле одной сессии в 4–8 раз. Он снимает барьер «дорого» и «стыдно» и подводит к живому специалисту, когда это нужно.</p></div>
+        <div class="item"><span class="n">34%</span><h3>Работодатели</h3><p class="muted">компаний уже помогают сотрудникам с психологом, год назад — 19%. У Ясно корпоративные клиенты дают 22% выручки: B2B — самый быстрый путь к объёму.</p></div>
+      </div>
+      <p class="src muted" style="font-size:12.5px;margin-top:14px" id="thesis-src"></p>
+    </div>
+  </section>
+
+  <section id="product" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Что уже сделано</h2>
+      <p class="sec-lead">Работающий прототип сервиса: весь путь клиента и психолога собран, заявки сохраняются в базу. Платежи и живой режим ИИ — следующие шаги.</p>
+      <div class="prod" id="prod"></div>
+    </div>
+  </section>
+
+  <section id="model" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Как зарабатывает «Рядом»</h2>
+      <p class="sec-lead">Три источника выручки с разной маржинальностью. Параметры взяты из рыночных ориентиров — их можно поменять в калькуляторе ниже.</p>
+      <div class="streams">
+        <div class="stream w"><span class="eyebrow">Сессии с психологом</span><p class="big">30–37%</p><p>комиссия сервиса с каждой сессии. Психолог получает 63–70% — как на крупных платформах, но с прозрачными условиями.</p><small>Ориентир: Ясно, Zigmund.Online — психологу 48–70%</small></div>
+        <div class="stream m"><span class="eyebrow">ИИ-собеседник</span><p class="big">490–690 ₽</p><p>подписка в месяц. Поддержка между встречами и первая точка входа для тех, кто пока не готов к психологу.</p><small>Ориентир: ИИ-сервисы — 419–990 ₽ в месяц</small></div>
+        <div class="stream l"><span class="eyebrow">Компаниям</span><p class="big">B2B</p><p>годовые контракты: пакет сессий для сотрудников, ИИ-поддержка для всех, обезличенная аналитика благополучия команды.</p><small>Ориентир: у Ясно корпоративные сессии — 22% выручки</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calc" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Финансовая модель</h2>
+      <p class="sec-lead">Выберите сценарий или задайте свои допущения. Выручка — то, что остаётся сервису после выплат психологам; расходы на эквайринг (2,5% оборота) и вычисления ИИ (25% подписок) учтены.</p>
+      <div class="seg" role="group" aria-label="Сценарий" id="presets" style="margin-bottom:18px"></div>
+      <div class="calc">
+        <div class="panel" id="inputs"></div>
+        <div class="panel">
+          <span class="eyebrow">Выручка сервиса в месяц сейчас</span>
+          <p class="big" id="rev"></p>
+          <p class="muted" id="revSub"></p>
+          <div class="bar" id="mix" aria-hidden="true"></div>
+          <div class="legend" id="mixLegend"></div>
+          <div class="kpis">
+            <div class="kpi"><span>Оборот сессий в месяц</span><b id="gmv"></b></div>
+            <div class="kpi"><span>Результат в месяц</span><b id="ebitda"></b></div>
+            <div class="kpi"><span>Выручка за 3-й год</span><b id="y3"></b></div>
+            <div class="kpi"><span>Выход в плюс</span><b id="be"></b></div>
+          </div>
+          <h3 style="margin-top:26px">Выручка по годам</h3>
+          <div id="years"></div>
+          <table class="dt" id="ytable"></table>
+          <p class="muted" style="font-size:13px;margin-top:12px">Упрощения: все показатели растут одинаковым темпом, постоянные расходы не меняются, налоги и привлечение клиентов сверх постоянных расходов не учтены.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="funds" style="padding-top:0">
+    <div class="wrap split">
+      <div>
+        <h2>Раунд и использование средств</h2>
+        <p class="muted" style="margin-top:14px">Ищем партнёров на стадии pre-seed: бизнес-ангелов, фонды и стратегов из HR-tech, страхования и телемедицины. Условия и размер участия обсуждаем индивидуально.</p>
+        <div class="panel" style="margin-top:24px">
+          <span class="eyebrow">Предлагаемое распределение</span>
+          <div class="funds" id="fundsBar" aria-hidden="true"></div>
+          <div class="list" id="fundsList" style="margin-top:0"></div>
+        </div>
+      </div>
+      <div>
+        <h2>План на 18 месяцев</h2>
+        <div class="timeline" id="roadmap" style="margin-top:28px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="risks" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Риски — и что мы с ними делаем</h2>
+      <p class="sec-lead">Мы показываем слабые места рынка так же открыто, как сильные.</p>
+      <div class="risk" id="riskList"></div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top:0">
+    <div class="wrap faq">
+      <h2>Вопросы инвесторов</h2>
+      <div style="margin-top:28px">
+        <details><summary>Чем «Рядом» отличается от Ясно или Zigmund.Online?</summary><p>Крупные платформы продают подбор психолога. Мы добавляем ИИ-собеседника как дешёвую точку входа и поддержку между встречами: это удерживает клиента и приводит к психологу тех, кто иначе не пришёл бы. Плюс прозрачные требования к специалистам, видимые в каждой анкете.</p></details>
+        <details><summary>Не заменит ли ИИ психологов и вашу комиссию?</summary><p>Мы считаем их разными продуктами: ИИ помогает выговориться прямо сейчас, психолог — разобраться глубоко. ИИ не ставит диагнозы и в кризисе направляет к людям. Если спрос сместится к ИИ, подписка уже встроена в модель.</p></details>
+        <details><summary>Что будет, если примут закон о психологической деятельности?</summary><p>Все обсуждаемые проекты требуют стажа и подтверждённой квалификации. Наш отбор уже строже: стаж от трёх лет, проверка дипломов, супервизия. Регулирование скорее вытеснит слабых игроков, чем нас.</p></details>
+        <details><summary>Где посмотреть данные о рынке подробнее?</summary><p>На странице «Аналитика»: объём рынка, выручка платформ, цены, спрос, вакансии и регулирование — у каждой цифры есть первоисточник.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="booking">
+        <div>
+          <h2>Обсудить участие</h2>
+          <p class="muted" style="margin-top:14px">Оставьте контакты — пришлём презентацию и финансовую модель, договоримся о встрече с командой.</p>
+          <ul class="perks"><li>Ответим в течение двух рабочих дней</li><li>Покажем прототип и данные по заявкам</li><li>Контакты видит только команда основателей</li></ul>
+        </div>
+        <form class="form-grid" id="invForm" novalidate>
+          <label>Как к вам обращаться<input name="name" required maxlength="120" autocomplete="name" placeholder="Имя и фамилия"></label>
+          <label>Email, телефон или Telegram<input name="contact" required maxlength="120" autocomplete="email" placeholder="you@fund.ru или @username"></label>
+          <label>Кто вы<select name="kind"><option value="">Выберите</option><option>Бизнес-ангел</option><option>Венчурный фонд</option><option>Стратегический инвестор</option><option>Корпоративный клиент (B2B)</option><option>Другое</option></select></label>
+          <label>Интересующий чек<select name="ticket"><option value="">Пока не знаю</option><option>До 1 млн ₽</option><option>1–5 млн ₽</option><option>5–20 млн ₽</option><option>Больше 20 млн ₽</option></select></label>
+          <label class="full">Что важно обсудить (по желанию)<textarea name="message" maxlength="1500" placeholder="Например: метрики, команда, условия раунда"></textarea></label>
+          <label class="check full"><input type="checkbox" name="consent" required> Согласен(на) на обработку персональных данных для связи по заявке</label>
+          <div class="full"><button class="btn" type="submit">Отправить</button></div>
+          <p class="msg full" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="psychologists-data.js"></script>
+<script src="common.js"></script>
+<script src="articles.js"></script>
+<script src="analytics-data.js"></script>
+<script>
+const fmt = n => Math.round(n).toLocaleString("ru-RU").replace(/ /g," ");
+const src = keys => "Источник: " + keys.map(k=>`<a href="${SRC[k].u}" target="_blank" rel="noopener">${SRC[k].t}</a>`).join("; ");
+const mln = n => { const a=Math.abs(n)/1e6; return (n<0?"−":"") + (a>=100?fmt(a):a.toLocaleString("ru-RU",{maximumFractionDigits:1})) + " млн ₽"; };
+const money = n => Math.abs(n)>=1e6 ? mln(n) : (n<0?"−":"")+rub(Math.round(Math.abs(n)));
+const r1 = v => v.toLocaleString("ru-RU",{maximumFractionDigits:1});
+
+function hbars(rows, valFmt){
+  const m = Math.max(...rows.map(r=>r[1]));
+  return `<div class="hb">${rows.map(r=>`<span>${r[0]}</span><span class="track"><span class="fill" style="width:${r[1]/m*100}%"></span></span><span class="val">${valFmt(r[1])}</span>`).join("")}</div>`;
+}
+function vbars(labels, values, valFmt){
+  const m = Math.max(...values, 1);
+  return `<div class="vb">${values.map(v=>`<div class="col"><span class="v">${valFmt(v)}</span><span class="bar" style="height:${Math.max(v,0)/m*78}%"></span></div>`).join("")}</div><div class="vx">${labels.map(y=>`<span>${y}</span>`).join("")}</div>`;
+}
+const chart = (id, title, sub, body, note, keys) => { $("#"+id).innerHTML = `<h3>${title}</h3><p class="csub">${sub}</p>${body}${note?`<p class="cnote">${note}</p>`:""}<p class="src">${src(keys)}</p>`; };
+
+/* KPI и рынок — из общего набора данных аналитики */
+$("#kpis").innerHTML = KPIS.slice(0,4).map(k=>`<div class="ktile"><b>${k.v}</b><p>${k.l}</p><small>${k.n}</small><small>${src(k.s)}</small></div>`).join("");
+chart("c-market","Рынок платных услуг психологов","млрд ₽ в год, онлайн и офлайн", vbars(MARKET.years, MARKET.values, r1), "Втрое больше, чем в 2020 году.", MARKET.s);
+chart("c-b2b","Работодатели платят за психолога","доля компаний, %", vbars(DEMAND.employers.years, DEMAND.employers.values, v=>v+"%"), "За 2025–2026 годы доля выросла почти вдвое.", DEMAND.employersS);
+chart("c-barriers","Почему не идут к психологу","% среди тех, кому была нужна помощь", hbars(DEMAND.barriers, v=>v+"%"), "Таких людей 25 млн; приемлемая цена для них — около 2 100 ₽ за сессию.", DEMAND.barriersS);
+$("#thesis-src").innerHTML = src(["fns","nafi","hhalter"]);
+
+/* продукт: считаем по реальному содержимому сайта */
+const PRODUCT = [
+  ["psychologists.html", PSY.length, "психологов в каталоге", "Фильтры по теме, подходу и цене, запись на конкретное время."],
+  ["ai.html", "Демо", "ИИ-собеседник", "Сценарий поддержки и лист ожидания живого режима."],
+  ["blog.html", ARTICLES.length, "статей в журнале", "Контент для клиентов и психологов — органический трафик."],
+  ["analytics.html", Object.keys(SRC).length, "источников в аналитике", "Собственное исследование рынка и калькулятор дохода психолога."],
+  ["join.html", "Отбор", "психологов", "Анкета и критерии: образование, стаж, супервизия, собеседование."],
+  ["index.html#booking", "3", "формы с сохранением в базу", "Записи клиентов, заявки психологов и подписки на письма."]
+];
+$("#prod").innerHTML = PRODUCT.map(p=>`<a class="item" href="${p[0]}"><b>${p[1]}</b><h3 style="margin:0">${p[2]}</h3><p class="muted" style="font-size:15px">${p[3]}</p></a>`).join("");
+
+/* калькулятор */
+const FIELDS = [
+  ["clients","Клиентов с сессиями в месяц",50,5000,50,v=>fmt(v)],
+  ["freq","Сессий на клиента в месяц",1,4,0.1,v=>r1(v)],
+  ["check","Средняя цена сессии",2000,7000,100,v=>rub(v)],
+  ["take","Комиссия сервиса",15,50,1,v=>v+"%"],
+  ["ai","Подписчиков ИИ-собеседника",0,30000,100,v=>fmt(v)],
+  ["aiPrice","Подписка ИИ в месяц",190,990,10,v=>rub(v)],
+  ["b2b","Корпоративных клиентов",0,50,1,v=>fmt(v)],
+  ["b2bFee","Контракт с компанией в месяц",30000,500000,10000,v=>rub(v)],
+  ["fixed","Постоянные расходы в месяц",500000,15000000,100000,v=>mln(v)],
+  ["growth","Рост в месяц",0,15,0.5,v=>r1(v)+"%"]
+];
+const GROUPS = {clients:"Сессии с психологом", ai:"ИИ-собеседник", b2b:"Компании", fixed:"Команда и маркетинг"};
+const SCENARIOS = [
+  {id:"low", label:"Осторожный", p:{clients:300,freq:2.8,check:3200,take:30,ai:500,aiPrice:490,b2b:1,b2bFee:100000,fixed:2500000,growth:4}},
+  {id:"base",label:"Базовый",    p:{clients:800,freq:3,check:3500,take:35,ai:2000,aiPrice:590,b2b:3,b2bFee:150000,fixed:5000000,growth:6}},
+  {id:"high",label:"Смелый",     p:{clients:2000,freq:3.2,check:3800,take:37,ai:6000,aiPrice:690,b2b:8,b2bFee:200000,fixed:8000000,growth:7}}
+];
+$("#inputs").innerHTML = FIELDS.map(([k,l,min,max,step])=>`${GROUPS[k]?`<h3>${GROUPS[k]}</h3>`:""}<div class="range"><label class="lbl" for="f-${k}" style="flex-direction:row;color:var(--ink)"><span>${l}</span><b id="o-${k}"></b></label><input type="range" id="f-${k}" min="${min}" max="${max}" step="${step}"></div>`).join("");
+$("#presets").innerHTML = SCENARIOS.map(s=>`<button type="button" data-s="${s.id}" aria-pressed="false">${s.label}</button>`).join("");
+const inp = k => $("#f-"+k);
+function setScenario(id){
+  const s = SCENARIOS.find(x=>x.id===id);
+  FIELDS.forEach(([k])=>inp(k).value=s.p[k]);
+  $$("#presets button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.s===id));
+  calc();
+}
+$("#presets").addEventListener("click",e=>{const b=e.target.closest("button[data-s]"); if(b) setScenario(b.dataset.s);});
+$("#inputs").addEventListener("input",()=>{ $$("#presets button").forEach(b=>b.setAttribute("aria-pressed","false")); calc(); });
+
+const MIX_COLORS = ["#E9A27A","#6FAE97","#A99BD6"];
+function month(v, k){
+  const gmv = v.clients*v.freq*v.check*k, aiRev = v.ai*v.aiPrice*k, b2b = v.b2b*v.b2bFee*k;
+  const sess = gmv*v.take/100;
+  const rev = sess + aiRev + b2b;
+  const varCost = (gmv + aiRev + b2b)*0.025 + aiRev*0.25;
+  return {gmv, sess, aiRev, b2b, rev, result: rev - varCost - v.fixed};
+}
+function calc(){
+  const v = Object.fromEntries(FIELDS.map(([k])=>[k,+inp(k).value]));
+  FIELDS.forEach(([k,,,,,f])=>$("#o-"+k).textContent=f(v[k]));
+  const g = 1 + v.growth/100, now = month(v,1);
+  $("#rev").textContent = money(now.rev);
+  $("#revSub").textContent = `Годовой темп — ${mln(now.rev*12)}. Психологам уходит ${money(now.gmv-now.sess)} в месяц.`;
+  const parts = [["Сессии",now.sess],["ИИ",now.aiRev],["B2B",now.b2b]];
+  $("#mix").innerHTML = parts.map((p,i)=>p[1]>0?`<div style="flex:${p[1]};background:${MIX_COLORS[i]}">${Math.round(p[1]/now.rev*100)}%</div>`:"").join("");
+  $("#mixLegend").innerHTML = parts.map((p,i)=>`<span><i style="background:${MIX_COLORS[i]}"></i>${p[0]} — ${money(p[1])}</span>`).join("");
+  $("#gmv").textContent = money(now.gmv);
+  $("#ebitda").textContent = money(now.result); $("#ebitda").className = now.result<0?"neg":"pos";
+  const years = [0,1,2].map(y=>{ let rev=0,res=0; for(let m=y*12;m<y*12+12;m++){ const x=month(v,Math.pow(g,m)); rev+=x.rev; res+=x.result; } return {rev,res}; });
+  $("#y3").textContent = mln(years[2].rev);
+  let be = -1; for(let m=0;m<36;m++){ if(month(v,Math.pow(g,m)).result>=0){ be=m; break; } }
+  $("#be").textContent = be===0 ? "уже сейчас" : be>0 ? `через ${be} мес.` : "за 3 года — нет";
+  $("#years").innerHTML = vbars(["1-й год","2-й год","3-й год"], years.map(y=>y.rev), mln);
+  $("#ytable").innerHTML = `<tr><th>Год</th><th class="n">Выручка</th><th class="n">Результат</th></tr>` + years.map((y,i)=>`<tr><td>${i+1}-й</td><td class="n">${mln(y.rev)}</td><td class="n ${y.res<0?"neg":"pos"}">${mln(y.res)}</td></tr>`).join("");
+}
+setScenario("base");
+
+/* раунд и план */
+const FUNDS = [["Продукт: живой ИИ, оплата, приложение",40,"#2F6E57","#fff"],["Привлечение клиентов и психологов",30,"#6FAE97","#fff"],["B2B-продажи",15,"#E9A27A","var(--ink)"],["Юридическое и операционное",15,"#DCE3DE","var(--ink)"]];
+$("#fundsBar").innerHTML = FUNDS.map(f=>`<div style="flex:${f[1]};background:${f[2]};color:${f[3]}">${f[1]}%</div>`).join("");
+$("#fundsList").innerHTML = FUNDS.map(f=>`<div style="display:flex;gap:10px;align-items:center;font-size:15px"><i style="width:12px;height:12px;border-radius:3px;background:${f[2]};flex:none"></i><span style="flex:1">${f[0]}</span><b>${f[1]}%</b></div>`).join("");
+const ROADMAP = [
+  ["IV квартал 2026","Онлайн-оплата сессий, личный кабинет клиента и психолога."],
+  ["I квартал 2027","Живой режим ИИ-собеседника, подписка, передача клиента психологу."],
+  ["II квартал 2027","Первые пилоты с компаниями: пакет сессий и ИИ-поддержка для сотрудников."],
+  ["III квартал 2027","Мобильное приложение, 100+ психологов в команде."],
+  ["IV квартал 2027 — I квартал 2028","Масштабирование B2B, партнёрства со страховыми и телемедициной; подготовка следующего раунда."]
+];
+$("#roadmap").innerHTML = ROADMAP.map(r=>`<div><b>${r[0]}</b><p>${r[1]}</p></div>`).join("");
+
+/* риски */
+const RISKS = [
+  ["Регулирование", REG_STATUS, "Наш отбор уже соответствует самым строгим проектам: стаж от трёх лет, проверенное образование, супервизия."],
+  ["Спрос сжимается", "В 2025 году посещаемость онлайн-сервисов выросла на 58%, но выручка снизилась на 7%: люди приходят, но платят реже.", "Дешёвая подписка на ИИ удерживает тех, кому сессия пока не по карману, а B2B не зависит от личного бюджета."],
+  ["Конкуренция", "Ясно, Alter, Zigmund.Online и маркетплейсы уже собрали тысячи психологов и крупные корпоративные контракты.", "Соревнуемся не количеством анкет, а связкой ИИ + психолог и доверием: прозрачные требования и бесплатная смена специалиста."],
+  ["Безопасность ИИ", "ИИ-собеседник может ошибиться с человеком в тяжёлом состоянии.", "ИИ не ставит диагнозы, распознаёт кризис и направляет к экстренной помощи и живому специалисту; сценарии проверяют психологи."]
+];
+$("#riskList").innerHTML = RISKS.map(r=>`<div class="item"><h3>${r[0]}</h3><p class="muted">${r[1]}</p><p class="muted"><b>Что делаем:</b> ${r[2]}</p></div>`).join("");
+
+/* форма инвестора */
+const F = $("#invForm");
+F.addEventListener("submit", async e=>{
+  e.preventDefault();
+  const msg=$(".msg",F), btn=$('button[type="submit"]',F), d=Object.fromEntries(new FormData(F));
+  if(d.name.trim().length<2){ setMsg(msg,"Напишите, как к вам обращаться.",false); F.name.focus(); return; }
+  if(d.contact.trim().length<3){ setMsg(msg,"Оставьте email, телефон или ник в Telegram.",false); F.contact.focus(); return; }
+  if(!F.consent.checked){ setMsg(msg,"Нужно согласие на обработку данных, иначе мы не сможем связаться.",false); return; }
+  btn.disabled=true;
+  try{
+    const s = await insertRow("investor_requests",{name:d.name.trim(),contact:d.contact.trim(),kind:d.kind||null,ticket:d.ticket||null,message:d.message.trim()||null,consent:true});
+    if(s===201){ setMsg(msg,`Спасибо, ${d.name.trim()}! Пришлём материалы и предложим время встречи.`,true); F.reset(); }
+    else setMsg(msg,"Не получилось отправить. Попробуйте ещё раз чуть позже.",false);
+  }catch{ setMsg(msg,"Нет соединения. Проверьте интернет и попробуйте снова.",false); }
+  btn.disabled=false;
+});
+</script>
+</body>
+</html>

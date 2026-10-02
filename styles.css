@@ -178,7 +178,7 @@ details p{padding:0 0 22px;color:var(--muted)}
 .phones span{font-size:13px;color:var(--warm-ink)}
 @media(max-width:860px){.crisis{grid-template-columns:1fr}.phones{grid-template-columns:1fr}}
 footer.site{padding:48px 0 64px;border-top:1px solid var(--line);margin-top:24px}
-.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;font-size:15px}
+.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;font-size:15px}
 .foot ul{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:8px}
 .foot a{text-decoration:none;color:var(--muted)}
 .foot a:hover{color:var(--ink)}

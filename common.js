@@ -1,6 +1,10 @@
 /* ===== Рядом: общие данные, шапка, подвал, формы ===== */
 const SUPABASE_URL = "https://wuvadreohiphwevprwmk.supabase.co";
 const SUPABASE_KEY = "sb_publishable_QnCBQILrqr6PhrAE8521NA_edLJSMA-";
+/* Телеграм-бот (папка bot/). LEAD_URL — адрес воркера с /lead на конце: заявки будут приходить координатору в Телеграм.
+   BOT_USERNAME — имя бота без @: на сайте появятся ссылки «Написать в Telegram». Пока пусто — ничего не меняется. */
+const LEAD_URL = "";
+const BOT_USERNAME = "";
 
 const TOPIC_LABELS = {anxiety:"Тревога и паника", depression:"Апатия и нет сил", burnout:"Выгорание", relationships:"Отношения", couples:"Кризис в паре", selfesteem:"Самооценка", trauma:"Травма", grief:"Утрата и горе", teens:"Подростки", parenting:"Дети и родители", perinatal:"Беременность и материнство", career:"Работа и прокрастинация", anger:"Злость и раздражение", addiction:"Зависимости", eating:"Отношения с едой", crisis:"Перемены и кризисы"};
 const APPROACH_LABELS = {cbt:"КПТ", act:"ACT", gestalt:"Гештальт-терапия", existential:"Экзистенциальная терапия", family:"Системная семейная терапия", eft:"Эмоционально-фокусированная терапия", psychoanalytic:"Психоаналитическая терапия", art:"Арт-терапия", emdr:"EMDR", somatic:"Телесно-ориентированная терапия", schema:"Схема-терапия", person:"Клиент-центрированная терапия", perinatal:"Перинатальная психология"};
@@ -89,7 +93,7 @@ function renderLayout(){
   <footer class="site"><div class="wrap">
     <div class="foot">
       <div><a class="logo" href="index.html">${LOGO}Рядом</a><p class="muted" style="margin-top:10px;max-width:320px">Психологи онлайн, ИИ-собеседник и письма поддержки. Выберите, с чего начать.</p></div>
-      <div><h4>Клиентам</h4><ul><li><a href="psychologists.html">Все психологи</a></li><li><a href="#" data-open-booking>Записаться</a></li><li><a href="ai.html">ИИ-собеседник</a></li><li><a href="index.html#faq">Вопросы и ответы</a></li></ul></div>
+      <div><h4>Клиентам</h4><ul>${BOT_USERNAME?`<li><a href="https://t.me/${BOT_USERNAME}" target="_blank" rel="noopener">Написать в Telegram</a></li>`:""}<li><a href="psychologists.html">Все психологи</a></li><li><a href="#" data-open-booking>Записаться</a></li><li><a href="ai.html">ИИ-собеседник</a></li><li><a href="index.html#faq">Вопросы и ответы</a></li></ul></div>
       <div><h4>Специалистам</h4><ul><li><a href="join.html">Как попасть в команду</a></li><li><a href="blog.html">Журнал</a></li><li><a href="analytics.html">Аналитика и калькулятор</a></li></ul></div>
     </div>
     <p class="copy">© 2026 «Рядом». Демо-проект. Не является медицинской услугой.</p>
@@ -101,7 +105,15 @@ function renderLayout(){
 /* ---- supabase ---- */
 async function insertRow(table,row){
   const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(row)});
+  if(r.status===201) notifyBot(table,row);
   return r.status;
+}
+/* копия заявки в Телеграм координатору; ошибки бота не мешают форме — заявка уже сохранена в базе */
+function notifyBot(table,row){
+  if(!LEAD_URL) return;
+  const type = {bookings:"booking", psychologist_applications:"application", subscribers:"subscribe"}[table];
+  if(!type) return;
+  fetch(LEAD_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,...row}),keepalive:true}).catch(()=>{});
 }
 function setMsg(el,text,ok){ if(!el) return; el.textContent=text; el.classList.remove("ok","err"); el.classList.add(ok?"ok":"err"); }
 const msgFor = f => (f.nextElementSibling && f.nextElementSibling.classList.contains("msg")) ? f.nextElementSibling : $(".msg",f);

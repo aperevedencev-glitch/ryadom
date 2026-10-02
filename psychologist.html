@@ -61,6 +61,7 @@ if(!p){
         ${p.slots.map(([d,times])=>`<div><div class="day">${dayLabel(d)}</div><div class="times">${times.map(t=>`<button class="slot" type="button" data-open-booking data-psy="${p.name}" data-slot="${dayLabel(d)}, ${t}">${t}</button>`).join("")}</div></div>`).join("")}
       </div>
       <button class="btn" type="button" style="width:100%;margin-top:20px" data-open-booking data-psy="${p.name}">Записаться</button>
+      ${BOT_USERNAME?`<a class="btn ghost" style="width:100%;margin-top:10px" href="https://t.me/${BOT_USERNAME}?start=psy_${p.id}" target="_blank" rel="noopener">Записаться в Telegram</a>`:""}
       <p class="muted" style="font-size:13px;margin-top:12px">Не подошло время? Оставьте заявку — координатор предложит другие окна.</p>
     </aside>
   </div>

@@ -1,0 +1,15 @@
+name = "ryadom-bot"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+# Адрес сайта — для ссылок «Анкета на сайте» и «Открыть сайт»
+SITE_URL = "https://aperevedencev-glitch.github.io/ryadom/"
+# Откуда принимать заявки (без пути). Несколько — через запятую.
+ALLOWED_ORIGIN = "https://aperevedencev-glitch.github.io"
+# ADMIN_CHAT_ID задайте после того, как узнаете его командой /id
+ADMIN_CHAT_ID = ""
+
+# Секреты задаются отдельно, не в этом файле:
+#   npx wrangler secret put BOT_TOKEN
+#   npx wrangler secret put WEBHOOK_SECRET
